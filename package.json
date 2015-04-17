@@ -1,0 +1,17 @@
+{
+  "name": "loggerr",
+  "version": "1.0.0",
+  "description": "A simple logger to console or file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "log",
+    "logger",
+    "file",
+    "console"
+  ],
+  "author": "Wes Todd",
+  "license": "ISC"
+}
