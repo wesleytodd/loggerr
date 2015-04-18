@@ -18,6 +18,12 @@ log.error(new Error('My error message'));
 /*
 output: Thu Apr 16 2015 22:05:27 GMT-0500 (CDT) [error] - {"msg":"Error: My error message\n<STACK TRACE>"}
 */
+log.info('Something happened', {
+	foo: 'info about what happened'
+});
+/*
+output: Thu Apr 16 2015 22:05:27 GMT-0500 (CDT) [info] - {"msg":"Something happened","foo":"info about what happened"}
+*/
 ```
 
 ## Log Levels
