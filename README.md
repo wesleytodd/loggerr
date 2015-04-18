@@ -34,7 +34,7 @@ Loggerr supports log levels.  Each log level can be directed to a different outp
 - Alert
 - Critical
 - Error
-- Warning
+- Warning (default)
 - Notice
 - Info
 - Debug
@@ -84,7 +84,18 @@ var logger = new Loggerr({
 });
 ```
 
-The only built in formatter right now is `default`, but I plan on adding some more of the basic ones, which I will document here.
+There are two built in formatters:
+
+- `default`: Outputs date, level and json
+- `cli`: Outputs just the message and json data, colorized and formatted
+
+To use the cli formatter just require it and pass the `formatter` options:
+
+```javascript
+var logger = new Loggerr({
+	formatter: require('loggerr/formatters/cli')
+});
+```
 
 ## Output Streams
 

@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/wesleytodd/loggerr/issues"
   },
-  "homepage": "https://github.com/wesleytodd/loggerr"
+  "homepage": "https://github.com/wesleytodd/loggerr",
+  "dependencies": {
+    "chalk": "^1.0.0"
+  }
 }

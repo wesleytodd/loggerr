@@ -2,7 +2,7 @@ var assert = require('assert'),
 	util = require('util'),
 	fs = require('fs'),
 	path = require('path'),
-	Logger = require('../logger'),
+	Logger = require('../'),
 	Writable = require('stream').Writable,
 	logdir = path.join(__dirname, 'log');
 

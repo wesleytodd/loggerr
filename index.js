@@ -35,7 +35,7 @@ Logger.levels.forEach(function(level, i) {
  *
  */
 Logger.defaultOptions = {
-	level: Logger.ERROR,
+	level: Logger.WARNING,
 	formatter: require('./formatters/default'),
 	streams: Logger.levels.map(function(level, i) {
 		return i > Logger.WARNING ? process.stdout : process.stderr;
