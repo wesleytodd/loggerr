@@ -29,7 +29,7 @@ module.exports = function(date, level, data) {
 	delete data.msg;
 
 	if (Object.keys(data).length) {
-		msg += ' ' + util.inspect(data, {
+		msg += '\n ' + util.inspect(data, {
 			colors: true
 		});
 	}

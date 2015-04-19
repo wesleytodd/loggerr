@@ -34,7 +34,7 @@ Loggerr supports log levels.  Each log level can be directed to a different outp
 - Alert
 - Critical
 - Error
-- Warning (default)
+- Warning *(default)*
 - Notice
 - Info
 - Debug
