@@ -68,7 +68,7 @@ Logger.prototype.log = function(level, msg, extra, done) {
 	// Set message on extra object
 	if (msg instanceof Error) {
 		extra.msg = msg.stack;
-		extra.code = extra.code || msg.code;
+		extra.code = extra.code || msg.code || msg.name;
 	} else {
 		extra.msg = msg;
 	}
