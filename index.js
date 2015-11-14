@@ -37,7 +37,7 @@ Logger.levels.forEach(function(level, i) {
 Logger.defaultOptions = {
 	level: Logger.WARNING,
 	formatter: require('./formatters/default'),
-	streams: typeof process !== 'undefined' ? Logger.levels.map(function(level, i) {
+	streams: typeof window === 'undefined' ? Logger.levels.map(function(level, i) {
 		return i > Logger.WARNING ? process.stdout : process.stderr;
 	}) : Logger.levels.map(function(level, i) {
 		return i > Logger.WARNING ? {
