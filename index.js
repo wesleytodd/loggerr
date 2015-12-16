@@ -3,7 +3,7 @@
  *
  */
 var Logger = module.exports = function(options) {
-	option = options || {};
+	options = options || {};
 	this.streams = options.streams || Logger.defaultOptions.streams;
 	this.formatter = options.formatter || Logger.defaultOptions.formatter;
 	this.level = isFinite(options.level) ? options.level : Logger.defaultOptions.level;
