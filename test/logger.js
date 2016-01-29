@@ -142,4 +142,22 @@ describe('Logger', function () {
 			});
 		});
 	});
+
+	it.only('should log error level messages with a stack trace', function (done) {
+		var w = new Writable({
+			decodeStrings: false,
+			write: function (chunk, encoding, next) {
+				assert(chunk.indexOf('Error: foobar') !== -1);
+				assert(chunk.indexOf('/test/logger.js') !== -1);
+				done();
+			}
+		});
+		var logger = new Logger({
+			streams: Logger.levels.map(function () {
+				return w;
+			}),
+			level: Logger.ERROR
+		});
+		logger.error('foobar');
+	});
 });

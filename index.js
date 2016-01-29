@@ -81,6 +81,10 @@ Logger.prototype.log = function (level, msg, extra, done) {
 	if (msg instanceof Error) {
 		extra.msg = msg.stack;
 		extra.code = extra.code || msg.code || msg.name;
+	} else if (i <= Logger.ERROR) {
+		var err = new Error(msg);
+		extra.msg = err.stack;
+		extra.code = extra.code || err.code;
 	} else {
 		extra.msg = msg;
 	}
