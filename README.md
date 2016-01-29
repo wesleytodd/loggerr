@@ -1,5 +1,6 @@
 # Loggerr
 
+[![Build Status](https://travis-ci.org/wesleytodd/loggerr.svg?branch=master)](https://travis-ci.org/wesleytodd/loggerr)
 [![js-happiness-style](https://img.shields.io/badge/code%20style-happiness-brightgreen.svg)](https://github.com/JedWatson/happiness)
 
 A very simple logger with levels, thats it, no frills.
