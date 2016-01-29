@@ -4,7 +4,7 @@
   "description": "A simple logger to console or file",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "happiness && mocha"
   },
   "keywords": [
     "log",
@@ -29,6 +29,7 @@
     "chalk": "^1.0.0"
   },
   "devDependencies": {
+    "happiness": "github:jedwatson/happiness",
     "mocha": "^2.3.3"
   }
 }

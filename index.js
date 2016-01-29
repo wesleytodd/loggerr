@@ -2,14 +2,14 @@
  * Logger constructor
  *
  */
-var Logger = module.exports = function(options) {
+var Logger = module.exports = function (options) {
 	options = options || {};
 	this.streams = options.streams || Logger.defaultOptions.streams;
 	this.formatter = options.formatter || Logger.defaultOptions.formatter;
 	this.level = isFinite(options.level) ? options.level : Logger.defaultOptions.level;
 
 	// Add level methods
-	Logger.levels.forEach(function(level) {
+	Logger.levels.forEach(function (level) {
 		this[level] = this.log.bind(this, level);
 	}.bind(this));
 };
@@ -26,7 +26,7 @@ Logger.levels = [
 ];
 
 // Add level constants
-Logger.levels.forEach(function(level, i) {
+Logger.levels.forEach(function (level, i) {
 	Logger[level.toUpperCase()] = i;
 });
 
@@ -37,18 +37,18 @@ Logger.levels.forEach(function(level, i) {
 Logger.defaultOptions = {
 	level: Logger.WARNING,
 	formatter: require('./formatters/default'),
-	streams: typeof window === 'undefined' ? Logger.levels.map(function(level, i) {
+	streams: typeof window === 'undefined' ? Logger.levels.map(function (level, i) {
 		return i > Logger.WARNING ? process.stdout : process.stderr;
-	}) : Logger.levels.map(function(level, i) {
+	}) : Logger.levels.map(function (level, i) {
 		return i > Logger.WARNING ? {
-			write: function(msg, encoding, done) {
-			   console.log(msg);
-			   typeof done === 'function' ? done() : null;
+			write: function (msg, encoding, done) {
+				console.log(msg);
+				typeof done === 'function' ? done() : null;
 			}
 		} : {
-			write: function(msg, encoding, done) {
-			   console.error(msg);
-			   typeof done === 'function' ? done() : null;
+			write: function (msg, encoding, done) {
+				console.error(msg);
+				typeof done === 'function' ? done() : null;
 			}
 		};
 	})
@@ -58,14 +58,14 @@ Logger.defaultOptions = {
  * Logs a message to the given stream
  *
  */
-Logger.prototype.log = function(level, msg, extra, done) {
+Logger.prototype.log = function (level, msg, extra, done) {
 	// Require a level, matching output stream and that
 	// it is greater then the set level of logging
 	var i = Logger.levels.indexOf(level);
 	if (
-		typeof level !== 'string'
-		|| i > this.level
-		|| !this.streams[i]
+		typeof level !== 'string' ||
+		i > this.level ||
+		!this.streams[i]
 	) {
 		return;
 	}

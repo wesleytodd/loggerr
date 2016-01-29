@@ -1,24 +1,24 @@
-var Loggerr = require('../'),
-	util = require('util'),
-	chalk = require('chalk');
+var Loggerr = require('../');
+var util = require('util');
+var chalk = require('chalk');
 
-module.exports = function(date, level, data) {
+module.exports = function (date, level, data) {
 	var color;
-	switch(Loggerr.levels.indexOf(level)) {
-		case Loggerr.EMERGENCY:
-		case Loggerr.ALERT:
-		case Loggerr.CRITICAL:
-		case Loggerr.ERROR:
-			color = chalk.red;
-			break;
-		case Loggerr.WARNING:
-		case Loggerr.NOTICE:
-			color = chalk.yellow;
-			break;
-		case Loggerr.INFO:
-		case Loggerr.DEBUG:
-			color = chalk.white;
-			break;
+	switch (Loggerr.levels.indexOf(level)) {
+	case Loggerr.EMERGENCY:
+	case Loggerr.ALERT:
+	case Loggerr.CRITICAL:
+	case Loggerr.ERROR:
+		color = chalk.red;
+		break;
+	case Loggerr.WARNING:
+	case Loggerr.NOTICE:
+		color = chalk.yellow;
+		break;
+	case Loggerr.INFO:
+	case Loggerr.DEBUG:
+		color = chalk.white;
+		break;
 	}
 
 	if (!color) {

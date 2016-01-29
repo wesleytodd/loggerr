@@ -1,57 +1,55 @@
-var assert = require('assert'),
-	util = require('util'),
-	fs = require('fs'),
-	path = require('path'),
-	Logger = require('../'),
-	Writable = require('stream').Writable,
-	logdir = path.join(__dirname, 'log');
+/* global describe, it, before, after */
+var assert = require('assert');
+var util = require('util');
+var fs = require('fs');
+var path = require('path');
+var Logger = require('../');
+var Writable = require('stream').Writable;
+var logdir = path.join(__dirname, 'log');
 
-describe('Logger', function() {
-
-	before(function() {
+describe('Logger', function () {
+	before(function () {
 		try {
 			fs.mkdirSync(logdir);
-		} catch(e) {}
+		} catch (e) {}
 	});
-	after(function() {
+	after(function () {
 		fs.rmdirSync(logdir);
 	});
 
-	Logger.levels.forEach(function(level, i) {
-
-		it(util.format('should log %s messages', level), function(done) {
+	Logger.levels.forEach(function (level, i) {
+		it(util.format('should log %s messages', level), function (done) {
 			var w = new Writable({
 				decodeStrings: false,
-				write: function(chunk, encoding, next) {
+				write: function (chunk, encoding, next) {
 					assert.notEqual(chunk.indexOf('foo'), -1, util.format('"%s" does not contain foo', chunk));
 					done();
 				}
 			});
 
 			var logger = new Logger({
-				streams: Logger.levels.map(function() {
+				streams: Logger.levels.map(function () {
 					return w;
 				}),
 				level: i
 			});
-			if (Logger.levels[i+1]) {
-				logger[Logger.levels[i+1]]('bar');
+			if (Logger.levels[i + 1]) {
+				logger[Logger.levels[i + 1]]('bar');
 			}
 			logger[Logger.levels[i]]('foo');
 		});
-		
 	});
 
-	it('should log errors', function(done) {
+	it('should log errors', function (done) {
 		var w = new Writable({
 			decodeStrings: false,
-			write: function(chunk, encoding, next) {
+			write: function (chunk, encoding, next) {
 				assert.notEqual(chunk.indexOf('Error loading data foo'), -1, util.format('"%s" does not contain foo', chunk));
 				done();
 			}
 		});
 		var logger = new Logger({
-			streams: Logger.levels.map(function() {
+			streams: Logger.levels.map(function () {
 				return w;
 			}),
 			level: Logger.ERROR
@@ -59,10 +57,10 @@ describe('Logger', function() {
 		logger.error(new Error('Error loading data foo'));
 	});
 
-	it('should log complex data structures', function(done) {
+	it('should log complex data structures', function (done) {
 		var w = new Writable({
 			decodeStrings: false,
-			write: function(chunk, encoding, next) {
+			write: function (chunk, encoding, next) {
 				var parsed = chunk.match(/([^[]*)\[([\w]*)\] - (.*)/);
 				var d = JSON.parse(parsed[3]);
 				assert.equal(parsed[2], 'error', 'Did not format message level');
@@ -73,7 +71,7 @@ describe('Logger', function() {
 			}
 		});
 		var logger = new Logger({
-			streams: Logger.levels.map(function() {
+			streams: Logger.levels.map(function () {
 				return w;
 			}),
 			level: Logger.ERROR
@@ -84,7 +82,7 @@ describe('Logger', function() {
 		});
 	});
 
-	it('should log to a file', function(done) {
+	it('should log to a file', function (done) {
 		var logfile = path.join(logdir, 'file.log');
 		var file = fs.createWriteStream(logfile, {
 			flags: 'a',
@@ -92,12 +90,12 @@ describe('Logger', function() {
 		});
 
 		var logger = new Logger({
-			streams: Logger.levels.map(function() {
+			streams: Logger.levels.map(function () {
 				return file;
 			}),
 			level: Logger.ERROR
 		});
-		logger.error('foo', function() {
+		logger.error('foo', function () {
 			var c = fs.readFileSync(logfile);
 			assert.notEqual(c.indexOf('foo'), -1);
 			fs.unlinkSync(logfile);
@@ -105,7 +103,7 @@ describe('Logger', function() {
 		});
 	});
 
-	it('should log to multiple files', function(done) {
+	it('should log to multiple files', function (done) {
 		var errfile = path.join(logdir, 'err.log');
 		var outfile = path.join(logdir, 'out.log');
 
@@ -119,14 +117,14 @@ describe('Logger', function() {
 		});
 
 		var logger = new Logger({
-			streams: Logger.levels.map(function(level, i) {
+			streams: Logger.levels.map(function (level, i) {
 				return i <= Logger.ERROR ? err : out;
 			}),
 			level: Logger.WARNING
 		});
 
-		logger.error('foo', function() {
-			logger.warning('bar', function() {
+		logger.error('foo', function () {
+			logger.warning('bar', function () {
 				var ec = fs.readFileSync(errfile);
 				var oc = fs.readFileSync(outfile);
 
@@ -144,5 +142,4 @@ describe('Logger', function() {
 			});
 		});
 	});
-
 });
