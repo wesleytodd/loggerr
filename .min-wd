@@ -1,0 +1,6 @@
+{
+  "sauceLabs": true,
+  "browsers": [{
+    "name": "chrome"
+  }]
+}
