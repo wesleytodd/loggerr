@@ -69,7 +69,7 @@ var Loggerr = require('loggerr'),
 var logger = new Loggerr({
 	formatter: function(date, level, data) {
 		var color;
-		switch(level) {
+		switch(Loggerr.levels.indexOf(level)) {
 			case Loggerr.EMERGENCY:
 			case Loggerr.ALERT:
 			case Loggerr.CRITICAL:
