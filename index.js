@@ -93,5 +93,13 @@ Logger.prototype.log = function (level, msg, extra, done) {
 	msg = this.formatter(new Date(), level, extra);
 
 	// Write out the message
-	this.streams[i].write(msg, 'utf8', done);
+	this._write(this.streams[i], msg, 'utf8', done);
+};
+
+/**
+ * Abstracted out the actuall writing of the log so it
+ * can be eaisly overridden in sub-classes
+ */
+Logger.prototype._write = function (stream, msg, enc, done) {
+	stream.write(msg, enc, done);
 };
