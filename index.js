@@ -2,7 +2,7 @@
  * Logger constructor
  *
  */
-var Logger = module.exports = function (options) {
+var Logger = module.exports = function Logger (options) {
 	options = options || {};
 	this.streams = options.streams || Logger.defaultOptions.streams;
 	this.formatter = options.formatter || Logger.defaultOptions.formatter;
@@ -52,6 +52,14 @@ Logger.defaultOptions = {
 			}
 		};
 	})
+};
+
+/**
+ * Set the level for the logger from either a string
+ *
+ */
+Logger.prototype.setLevel = function (level) {
+	this.level = (typeof level === 'string') ? Logger.levels.indexOf(level) : level;
 };
 
 /**
