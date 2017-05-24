@@ -77,4 +77,13 @@ describe('Logger - basic', function () {
 		});
 		logger.error('foobar');
 	});
+
+	it('should set the log level', function () {
+		var logger = new Logger();
+		assert.equal(logger.level, Logger.WARNING);
+		logger.setLevel('error');
+		assert.equal(logger.level, Logger.ERROR);
+		logger.setLevel(Logger.INFO);
+		assert.equal(logger.level, Logger.INFO);
+	});
 });
