@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "happiness && mocha",
-    "test-browser": "mochify --wd test/index.js"
+    "test-browser": "mochify --wd test/index.js",
+    "prepublishOnly": "npm t",
+    "postpublish": "git push && git push --tags"
   },
   "keywords": [
     "log",
