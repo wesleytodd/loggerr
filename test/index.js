@@ -86,4 +86,11 @@ describe('Logger - basic', function () {
 		logger.setLevel(Logger.INFO);
 		assert.equal(logger.level, Logger.INFO);
 	});
+
+	it('should auto new', function () {
+		assert.doesNotThrow(function () {
+			var logger = Logger();
+			assert(logger instanceof Logger);
+		});
+	});
 });

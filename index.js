@@ -3,6 +3,9 @@
  *
  */
 var Logger = module.exports = function Logger (options) {
+	if (!(this instanceof Logger)) {
+		return new Logger(options);
+	}
 	options = options || {};
 	this.streams = options.streams || Logger.defaultOptions.streams;
 	this.formatter = options.formatter || Logger.defaultOptions.formatter;
