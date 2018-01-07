@@ -46,12 +46,16 @@ Logger.defaultOptions = {
 		return i > Logger.WARNING ? {
 			write: function (msg, encoding, done) {
 				console.log(msg);
-				typeof done === 'function' ? done() : null;
+				if (typeof done === 'function') {
+					done();
+				}
 			}
 		} : {
 			write: function (msg, encoding, done) {
 				console.error(msg);
-				typeof done === 'function' ? done() : null;
+				if (typeof done === 'function') {
+					done();
+				}
 			}
 		};
 	})

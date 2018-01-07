@@ -30,8 +30,8 @@
     "chalk": "^1.0.0"
   },
   "devDependencies": {
-    "happiness": "^5.5.0",
-    "mocha": "^2.3.3",
-    "mochify": "^2.15.0"
+    "happiness": "^10.0.2",
+    "mocha": "^4.1.0",
+    "mochify": "^5.1.0"
   }
 }
