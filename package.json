@@ -29,11 +29,11 @@
   },
   "homepage": "https://github.com/wesleytodd/loggerr",
   "dependencies": {
-    "chalk": "^1.0.0"
+    "chalk": "^1.1.3"
   },
   "devDependencies": {
     "happiness": "^10.0.2",
-    "mocha": "^4.1.0",
-    "mochify": "^5.1.0"
+    "mocha": "^5.2.0",
+    "mochify": "^5.7.0"
   }
 }
