@@ -9,7 +9,7 @@ var Logger = module.exports = function Logger (options) {
 	options = options || {};
 	this.streams = options.streams || Logger.defaultOptions.streams;
 	this.formatter = options.formatter || Logger.defaultOptions.formatter;
-	this.level = isFinite(options.level) ? options.level : Logger.defaultOptions.level;
+	this.level = isFinite(options.level) ? options.level : (typeof Logger[options.level] === 'number' ? Logger[options.level] : Logger.defaultOptions.level);
 
 	// Add level methods
 	Logger.levels.forEach(function (level) {
@@ -96,10 +96,12 @@ Logger.prototype.log = function (level, msg, extra, done) {
 	if (msg instanceof Error) {
 		extra.msg = msg.stack;
 		extra.code = extra.code || msg.code || msg.name;
+		extra.err = msg;
 	} else if (i <= Logger.ERROR) {
 		var err = new Error(msg);
 		extra.msg = err.stack;
 		extra.code = extra.code || err.code;
+		extra.err = err;
 	} else {
 		extra.msg = msg;
 	}
