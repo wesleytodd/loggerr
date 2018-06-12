@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-  - "4.2"
-  - "5.4"
+  - "6"
+  - "10.4"
 
 env:
   global:
@@ -10,4 +10,4 @@ env:
 
 script:
   - 'npm test'
-  - 'if [ "x$TRAVIS_NODE_VERSION" = "x5.4" ]; then npm run test-browser; fi'
+  - 'if [ "x$TRAVIS_NODE_VERSION" = "x10.4" ]; then npm run test-browser; fi'
