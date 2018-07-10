@@ -9,7 +9,13 @@ var Logger = module.exports = function Logger (options) {
 	options = options || {};
 	this.streams = options.streams || Logger.defaultOptions.streams;
 	this.formatter = options.formatter || Logger.defaultOptions.formatter;
-	this.level = isFinite(options.level) ? options.level : (typeof Logger[options.level] === 'number' ? Logger[options.level] : Logger.defaultOptions.level);
+	if (isFinite(options.level)) {
+		this.level = options.level;
+	} else if (typeof options.level === 'string' && typeof Logger[options.level.toUpperCase()] === 'number') {
+		this.level = Logger[options.level.toUpperCase()];
+	} else {
+		this.level = Logger.defaultOptions.level;
+	}
 
 	// Add level methods
 	Logger.levels.forEach(function (level) {
