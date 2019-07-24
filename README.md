@@ -25,7 +25,7 @@ log.error(new Error('My error message'))
 output: Thu Apr 16 2015 22:05:27 GMT-0500 (CDT) [error] - {"msg":"Error: My error message\n<STACK TRACE>"}
 */
 log.info('Something happened', {
-	foo: 'info about what happened'
+  foo: 'info about what happened'
 })
 /*
 output: Thu Apr 16 2015 22:05:27 GMT-0500 (CDT) [info] - {"msg":"Something happened","foo":"info about what happened"}
@@ -49,7 +49,7 @@ Constants are available for setting and referencing the levels and their streams
 
 ```javascript
 const logger = new Loggerr({
-	level: Loggerr.DEBUG
+  level: Loggerr.DEBUG
 })
 
 logger.debug('Foo')
@@ -67,26 +67,26 @@ const Loggerr = require('loggerr')
 const chalk = require('chalk')
 
 const logger = new Loggerr({
-	formatter: function(date, level, data) {
-		var color
-		switch(Loggerr.levels.indexOf(level)) {
-			case Loggerr.EMERGENCY:
-			case Loggerr.ALERT:
-			case Loggerr.CRITICAL:
-			case Loggerr.ERROR:
-				color = chalk.red
-				break
-			case Loggerr.WARNING:
-			case Loggerr.NOTICE:
-				color = chalk.yellow
-				break
-			case Loggerr.INFO:
-			case Loggerr.DEBUG:
-				color = chalk.white
-				break
-		}
-		return color(data.msg)
-	}
+  formatter: function (date, level, data) {
+    var color
+    switch(Loggerr.levels.indexOf(level)) {
+      case Loggerr.EMERGENCY:
+      case Loggerr.ALERT:
+      case Loggerr.CRITICAL:
+      case Loggerr.ERROR:
+        color = chalk.red
+        break
+      case Loggerr.WARNING:
+      case Loggerr.NOTICE:
+        color = chalk.yellow
+        break
+      case Loggerr.INFO:
+      case Loggerr.DEBUG:
+        color = chalk.white
+        break
+    }
+    return color(data.msg)
+  }
 })
 ```
 
@@ -99,7 +99,7 @@ To use the cli formatter just require it and pass the `formatter` options:
 
 ```javascript
 const logger = new Loggerr({
-	formatter: require('loggerr/formatters/cli')
+  formatter: require('loggerr/formatters/cli')
 })
 ```
 
@@ -109,9 +109,9 @@ You can output each level to it's own stream.  The method is simple, just pass a
 
 ```javascript
 new Loggerr({
-	streams: Loggerr.levels.map(function(level, i) {
-		return i > Loggerr.WARNING ? process.stdin : process.stderr
-	})
+  streams: Loggerr.levels.map(function (level, i) {
+    return i > Loggerr.WARNING ? process.stdin : process.stderr
+  })
 })
 ```
 
@@ -119,14 +119,12 @@ The most useful reason to specify an output stream to to redirect logs to files.
 
 ```javascript
 const logfile = fs.createWriteStream('./logs/stdout.log', {
-	flags: 'a',
-	encoding: 'utf8'
+  flags: 'a',
+  encoding: 'utf8'
 })
 
 new Loggerr({
-	streams: Loggerr.levels.map(function() {
-		return logfile
-	})
+  streams: Loggerr.levels.map(() => logfile)
 })
 ```
 
