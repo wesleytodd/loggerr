@@ -1,9 +1,10 @@
-/* global describe, it, before, after */
-var assert = require('assert')
-var fs = require('fs')
-var path = require('path')
-var Logger = require('../')
-var logdir = path.join(__dirname, 'log')
+'use strict'
+const { describe, it, before, after } = require('mocha')
+const assert = require('assert')
+const fs = require('fs')
+const path = require('path')
+const Logger = require('../')
+const logdir = path.join(__dirname, 'log')
 
 describe('Logger - node specific', function () {
   before(function () {
@@ -16,20 +17,20 @@ describe('Logger - node specific', function () {
   })
 
   it('should log to a file', function (done) {
-    var logfile = path.join(logdir, 'file.log')
-    var file = fs.createWriteStream(logfile, {
+    const logfile = path.join(logdir, 'file.log')
+    const file = fs.createWriteStream(logfile, {
       flags: 'a',
       encoding: 'utf8'
     })
 
-    var logger = new Logger({
+    const logger = new Logger({
       streams: Logger.levels.map(function () {
         return file
       }),
       level: Logger.ERROR
     })
     logger.error('foo', function () {
-      var c = fs.readFileSync(logfile)
+      const c = fs.readFileSync(logfile)
       assert.notStrictEqual(c.indexOf('foo'), -1)
       fs.unlinkSync(logfile)
       done()
@@ -37,19 +38,19 @@ describe('Logger - node specific', function () {
   })
 
   it('should log to multiple files', function (done) {
-    var errfile = path.join(logdir, 'err.log')
-    var outfile = path.join(logdir, 'out.log')
+    const errfile = path.join(logdir, 'err.log')
+    const outfile = path.join(logdir, 'out.log')
 
-    var err = fs.createWriteStream(errfile, {
+    const err = fs.createWriteStream(errfile, {
       flags: 'a',
       encoding: 'utf8'
     })
-    var out = fs.createWriteStream(outfile, {
+    const out = fs.createWriteStream(outfile, {
       flags: 'a',
       encoding: 'utf8'
     })
 
-    var logger = new Logger({
+    const logger = new Logger({
       streams: Logger.levels.map(function (level, i) {
         return i <= Logger.ERROR ? err : out
       }),
@@ -58,8 +59,8 @@ describe('Logger - node specific', function () {
 
     logger.error('foo', function () {
       logger.warning('bar', function () {
-        var ec = fs.readFileSync(errfile)
-        var oc = fs.readFileSync(outfile)
+        const ec = fs.readFileSync(errfile)
+        const oc = fs.readFileSync(outfile)
 
         assert.notStrictEqual(ec.indexOf('error'), -1)
         assert.strictEqual(ec.indexOf('warning'), -1)

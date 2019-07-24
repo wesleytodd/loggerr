@@ -1,4 +1,5 @@
-/* global describe, it */
+'use strict'
+const { describe, it } = require('mocha')
 const assert = require('assert')
 const util = require('util')
 const Logger = require('../')
@@ -9,15 +10,13 @@ const writer = function (cb) {
 describe('Logger - basic', function () {
   Logger.levels.forEach(function (level, i) {
     it(util.format('should log %s messages', level), function (done) {
-      var w = writer(function (chunk, encoding, next) {
+      const w = writer(function (chunk, encoding, next) {
         assert.notStrictEqual(chunk.indexOf('foo'), -1, util.format('"%s" does not contain foo', chunk))
         done()
       })
 
-      var logger = new Logger({
-        streams: Logger.levels.map(function () {
-          return w
-        }),
+      const logger = new Logger({
+        streams: Logger.levels.map(() => w),
         level: i
       })
       if (Logger.levels[i + 1]) {
@@ -28,33 +27,29 @@ describe('Logger - basic', function () {
   })
 
   it('should log errors', function (done) {
-    var w = writer(function (chunk) {
+    const w = writer((chunk) => {
       assert.notStrictEqual(chunk.indexOf('Error loading data foo'), -1, util.format('"%s" does not contain foo', chunk))
       done()
     })
-    var logger = new Logger({
-      streams: Logger.levels.map(function () {
-        return w
-      }),
+    const logger = new Logger({
+      streams: Logger.levels.map(() => w),
       level: Logger.ERROR
     })
     logger.error(new Error('Error loading data foo'))
   })
 
   it('should log complex data structures', function (done) {
-    var w = writer(function (chunk) {
-      var parsed = chunk.match(/([^[]*)\[([\w]*)\] - (.*)/)
-      var d = JSON.parse(parsed[3])
+    const w = writer((chunk) => {
+      const parsed = chunk.match(/([^[]*)\[([\w]*)\] - (.*)/)
+      const d = JSON.parse(parsed[3])
       assert.strictEqual(parsed[2], 'error', 'Did not format message level')
       assert.strictEqual(d.msg.indexOf('Error: Failed to load data'), 0, 'Did not contain error message')
       assert.strictEqual(d.status, 500, 'Did not properly encode number')
       assert.strictEqual(d.meta, 'bar', 'Did not properly encode string')
       done()
     })
-    var logger = new Logger({
-      streams: Logger.levels.map(function () {
-        return w
-      }),
+    const logger = new Logger({
+      streams: Logger.levels.map(() => w),
       level: Logger.ERROR
     })
     logger.error(new Error('Failed to load data'), {
@@ -64,22 +59,20 @@ describe('Logger - basic', function () {
   })
 
   it('should log error level messages with a stack trace', function (done) {
-    var w = writer(function (chunk) {
+    const w = writer((chunk) => {
       assert.notStrictEqual(chunk.indexOf('Error: foobar'), -1)
       assert.notStrictEqual(chunk.indexOf('at Logger.log'), -1)
       done()
     })
-    var logger = new Logger({
-      streams: Logger.levels.map(function () {
-        return w
-      }),
+    const logger = new Logger({
+      streams: Logger.levels.map(() => w),
       level: Logger.ERROR
     })
     logger.error('foobar')
   })
 
   it('should set the log level', function () {
-    var logger = new Logger()
+    const logger = new Logger()
     assert.strictEqual(logger.level, Logger.WARNING)
     logger.setLevel('error')
     assert.strictEqual(logger.level, Logger.ERROR)
@@ -88,9 +81,8 @@ describe('Logger - basic', function () {
   })
 
   it('should auto new', function () {
-    assert.doesNotThrow(function () {
-      var logger = Logger()
-      assert(logger instanceof Logger)
+    assert.doesNotThrow(() => {
+      assert(Logger() instanceof Logger)
     })
   })
 })
