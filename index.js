@@ -1,8 +1,7 @@
 /**
  * Logger constructor
- *
  */
-var Logger = module.exports = function Logger (options) {
+const Logger = module.exports = function Logger (options) {
   if (!(this instanceof Logger)) {
     return new Logger(options)
   }
@@ -69,7 +68,6 @@ Logger.defaultOptions = {
 
 /**
  * Set the level for the logger from either a string
- *
  */
 Logger.prototype.setLevel = function (level) {
   this.level = (typeof level === 'string') ? Logger.levels.indexOf(level) : level
@@ -77,12 +75,11 @@ Logger.prototype.setLevel = function (level) {
 
 /**
  * Logs a message to the given stream
- *
  */
 Logger.prototype.log = function (level, msg, extra, done) {
   // Require a level, matching output stream and that
   // it is greater then the set level of logging
-  var i = Logger.levels.indexOf(level)
+  const i = Logger.levels.indexOf(level)
   if (
     typeof level !== 'string' ||
     i > this.level ||
@@ -104,7 +101,7 @@ Logger.prototype.log = function (level, msg, extra, done) {
     extra.code = extra.code || msg.code || msg.name
     extra.err = msg
   } else if (i <= Logger.ERROR) {
-    var err = new Error(msg)
+    const err = new Error(msg)
     extra.msg = err.stack
     extra.code = extra.code || err.code
     extra.err = err

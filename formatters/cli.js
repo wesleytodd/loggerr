@@ -1,9 +1,9 @@
-var Loggerr = require('../')
-var util = require('util')
-var chalk = require('chalk')
+const Loggerr = require('../')
+const util = require('util')
+const chalk = require('chalk')
 
 module.exports = function (date, level, data) {
-  var color
+  let color
   switch (Loggerr.levels.indexOf(level)) {
     case Loggerr.EMERGENCY:
     case Loggerr.ALERT:
@@ -25,7 +25,7 @@ module.exports = function (date, level, data) {
     return
   }
 
-  var msg = color(data.msg)
+  let msg = color(data.msg)
   delete data.msg
 
   if (Object.keys(data).length) {
