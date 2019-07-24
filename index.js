@@ -1,3 +1,6 @@
+'use strict'
+const path = require('path')
+
 /**
  * Logger constructor
  */
@@ -7,7 +10,14 @@ const Logger = module.exports = function Logger (options) {
   }
   options = options || {}
   this.streams = options.streams || Logger.defaultOptions.streams
-  this.formatter = options.formatter || Logger.defaultOptions.formatter
+
+  // Setup formatter
+  let formatter = options.formatter || Logger.defaultOptions.formatter
+  if (typeof formatter === 'string') {
+    formatter = require(path.join(__dirname, 'formatters', formatter))
+  }
+  this.formatter = formatter
+
   if (isFinite(options.level)) {
     this.level = options.level
   } else if (typeof options.level === 'string' && typeof Logger[options.level.toUpperCase()] === 'number') {

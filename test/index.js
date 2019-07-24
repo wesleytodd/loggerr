@@ -1,8 +1,8 @@
 /* global describe, it */
-var assert = require('assert')
-var util = require('util')
-var Logger = require('../')
-var writer = function (cb) {
+const assert = require('assert')
+const util = require('util')
+const Logger = require('../')
+const writer = function (cb) {
   return { write: cb }
 }
 
