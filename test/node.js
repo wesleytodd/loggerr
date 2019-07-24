@@ -75,4 +75,17 @@ describe('Logger - node specific', function () {
       })
     })
   })
+
+  it('should load a named formatter', function (done) {
+    Logger({
+      level: Logger.INFO,
+      streams: Logger.levels.map(() => ({
+        write: (chunk) => {
+          assert.strictEqual(JSON.parse(chunk).msg, 'Foo Bar')
+          done()
+        }
+      })),
+      formatter: 'bunyan'
+    }).error('Foo Bar', { code: 'test' })
+  })
 })
