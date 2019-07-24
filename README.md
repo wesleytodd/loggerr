@@ -3,7 +3,7 @@
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
 [![Build Status](https://travis-ci.org/wesleytodd/loggerr.svg?branch=master)](https://travis-ci.org/wesleytodd/loggerr)
-[![js-happiness-style](https://img.shields.io/badge/code%20style-happiness-brightgreen.svg)](https://github.com/JedWatson/happiness)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/standardjs/standard)
 [![Sauce Test Status](https://saucelabs.com/buildstatus/loggerr)](https://saucelabs.com/u/loggerr)
 
 A very simple logger with levels, thats it, no frills.
@@ -17,16 +17,16 @@ $ npm install --save loggerr
 ## Usage
 
 ```javascript
-var Loggerr = require('loggerr');
+const Loggerr = require('loggerr')
 
-var log = new Loggerr();
-log.error(new Error('My error message'));
+const log = new Loggerr()
+log.error(new Error('My error message'))
 /*
 output: Thu Apr 16 2015 22:05:27 GMT-0500 (CDT) [error] - {"msg":"Error: My error message\n<STACK TRACE>"}
 */
 log.info('Something happened', {
 	foo: 'info about what happened'
-});
+})
 /*
 output: Thu Apr 16 2015 22:05:27 GMT-0500 (CDT) [info] - {"msg":"Something happened","foo":"info about what happened"}
 */
@@ -48,11 +48,11 @@ Loggerr supports log levels.  Each log level can be directed to a different outp
 Constants are available for setting and referencing the levels and their streams.  These constants are the all uppercase version of the level.  Here is an example of setting the log level:
 
 ```javascript
-var logger = new Loggerr({
+const logger = new Loggerr({
 	level: Loggerr.DEBUG
-});
+})
 
-logger.debug('Foo');
+logger.debug('Foo')
 /*
 output: Thu Apr 16 2015 22:05:27 GMT-0500 (CDT) [debug] - {"msg":"Foo"}
 */
@@ -63,31 +63,31 @@ output: Thu Apr 16 2015 22:05:27 GMT-0500 (CDT) [debug] - {"msg":"Foo"}
 Loggerr supports formatting via formatter functions.  The default formatter outputs a timestamp, the log level and the messages formatted as json.  But you can provide a custom formatter function with the `formatter` options.  Formatter functions take three parameters: `date`, `level`, `data`.  Say we want to output the log message with a color based on the level:
 
 ```javascript
-var Loggerr = require('loggerr'),
-	chalk = require('chalk');
+const Loggerr = require('loggerr')
+const chalk = require('chalk')
 
-var logger = new Loggerr({
+const logger = new Loggerr({
 	formatter: function(date, level, data) {
-		var color;
+		var color
 		switch(Loggerr.levels.indexOf(level)) {
 			case Loggerr.EMERGENCY:
 			case Loggerr.ALERT:
 			case Loggerr.CRITICAL:
 			case Loggerr.ERROR:
-				color = chalk.red;
-				break;
+				color = chalk.red
+				break
 			case Loggerr.WARNING:
 			case Loggerr.NOTICE:
-				color = chalk.yellow;
-				break;
+				color = chalk.yellow
+				break
 			case Loggerr.INFO:
 			case Loggerr.DEBUG:
-				color = chalk.white;
-				break;
+				color = chalk.white
+				break
 		}
-		return color(data.msg);
+		return color(data.msg)
 	}
-});
+})
 ```
 
 There are two built in formatters:
@@ -98,9 +98,9 @@ There are two built in formatters:
 To use the cli formatter just require it and pass the `formatter` options:
 
 ```javascript
-var logger = new Loggerr({
+const logger = new Loggerr({
 	formatter: require('loggerr/formatters/cli')
-});
+})
 ```
 
 ## Output Streams
@@ -110,24 +110,24 @@ You can output each level to it's own stream.  The method is simple, just pass a
 ```javascript
 new Loggerr({
 	streams: Loggerr.levels.map(function(level, i) {
-		return i > Loggerr.WARNING ? process.stdin : process.stderr;
+		return i > Loggerr.WARNING ? process.stdin : process.stderr
 	})
-});
+})
 ```
 
 The most useful reason to specify an output stream to to redirect logs to files.  Here is an example of how to do that:
 
 ```javascript
-var logfile = fs.createWriteStream('./logs/stdout.log', {
+const logfile = fs.createWriteStream('./logs/stdout.log', {
 	flags: 'a',
 	encoding: 'utf8'
-});
+})
 
 new Loggerr({
 	streams: Loggerr.levels.map(function() {
-		return logfile;
+		return logfile
 	})
-});
+})
 ```
 
 [npm-image]: https://img.shields.io/npm/v/loggerr.svg

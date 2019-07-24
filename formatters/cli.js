@@ -1,38 +1,38 @@
-var Loggerr = require('../');
-var util = require('util');
-var chalk = require('chalk');
+var Loggerr = require('../')
+var util = require('util')
+var chalk = require('chalk')
 
 module.exports = function (date, level, data) {
-	var color;
-	switch (Loggerr.levels.indexOf(level)) {
-		case Loggerr.EMERGENCY:
-		case Loggerr.ALERT:
-		case Loggerr.CRITICAL:
-		case Loggerr.ERROR:
-			color = chalk.red;
-			break;
-		case Loggerr.WARNING:
-		case Loggerr.NOTICE:
-			color = chalk.yellow;
-			break;
-		case Loggerr.INFO:
-		case Loggerr.DEBUG:
-			color = chalk.white;
-			break;
-	}
+  var color
+  switch (Loggerr.levels.indexOf(level)) {
+    case Loggerr.EMERGENCY:
+    case Loggerr.ALERT:
+    case Loggerr.CRITICAL:
+    case Loggerr.ERROR:
+      color = chalk.red
+      break
+    case Loggerr.WARNING:
+    case Loggerr.NOTICE:
+      color = chalk.yellow
+      break
+    case Loggerr.INFO:
+    case Loggerr.DEBUG:
+      color = chalk.white
+      break
+  }
 
-	if (!color) {
-		return;
-	}
+  if (!color) {
+    return
+  }
 
-	var msg = color(data.msg);
-	delete data.msg;
+  var msg = color(data.msg)
+  delete data.msg
 
-	if (Object.keys(data).length) {
-		msg += '\n ' + util.inspect(data, {
-			colors: true
-		});
-	}
+  if (Object.keys(data).length) {
+    msg += '\n ' + util.inspect(data, {
+      colors: true
+    })
+  }
 
-	return msg + '\n';
-};
+  return msg + '\n'
+}
