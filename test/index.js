@@ -40,35 +40,24 @@ describe('Logger - basic', function () {
 
   it('should log complex data structures', function (done) {
     const w = writer((chunk) => {
-      const parsed = chunk.match(/([^[]*)\[([\w]*)\] - (.*)/)
-      const d = JSON.parse(parsed[3])
-      assert.strictEqual(parsed[2], 'error', 'Did not format message level')
-      assert.strictEqual(d.msg.indexOf('Error: Failed to load data'), 0, 'Did not contain error message')
+      const d = chunk[2]
+      assert.strictEqual(chunk[1], 'error', 'Did not format message level')
+      assert.strictEqual(d.err.stack.indexOf('Error: Failed to load data'), 0, 'Did not contain error message')
       assert.strictEqual(d.status, 500, 'Did not properly encode number')
       assert.strictEqual(d.meta, 'bar', 'Did not properly encode string')
       done()
     })
     const logger = new Logger({
       streams: Logger.levels.map(() => w),
-      level: Logger.ERROR
+      level: Logger.ERROR,
+      formatter: (date, level, data) => {
+        return [date, level, data]
+      }
     })
     logger.error(new Error('Failed to load data'), {
       status: 500,
       meta: 'bar'
     })
-  })
-
-  it('should log error level messages with a stack trace', function (done) {
-    const w = writer((chunk) => {
-      assert.notStrictEqual(chunk.indexOf('Error: foobar'), -1)
-      assert.notStrictEqual(chunk.indexOf('at Logger.log'), -1)
-      done()
-    })
-    const logger = new Logger({
-      streams: Logger.levels.map(() => w),
-      level: Logger.ERROR
-    })
-    logger.error('foobar')
   })
 
   it('should set the log level', function () {
