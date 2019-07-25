@@ -16,6 +16,20 @@ describe('Logger - node specific', function () {
     fs.rmdirSync(logdir)
   })
 
+  it('should log error level messages with a stack trace', function (done) {
+    const logger = new Logger({
+      level: Logger.ERROR,
+      streams: Logger.levels.map(() => ({
+        write: (chunk) => {
+          assert.notStrictEqual(chunk.indexOf('Error: foobar'), -1)
+          assert.notStrictEqual(chunk.indexOf('loggerr/test/node.js:'), -1)
+          done()
+        }
+      }))
+    })
+    logger.error('foobar')
+  })
+
   it('should log to a file', function (done) {
     const logfile = path.join(logdir, 'file.log')
     const file = fs.createWriteStream(logfile, {

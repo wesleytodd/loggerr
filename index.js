@@ -1,5 +1,4 @@
 'use strict'
-const path = require('path')
 
 /**
  * Logger constructor
@@ -14,7 +13,7 @@ const Logger = module.exports = function Logger (options) {
   // Setup formatter
   let formatter = options.formatter || Logger.defaultOptions.formatter
   if (typeof formatter === 'string') {
-    formatter = require(path.join(__dirname, 'formatters', formatter))
+    formatter = require(`${__dirname}/formatters/${formatter}`)
   }
   this.formatter = formatter
 
@@ -103,27 +102,18 @@ Logger.prototype.log = function (level, msg, extra, done) {
     done = extra
     extra = {}
   }
-  extra = extra || {}
+  const data = extra || {}
 
   // Set message on extra object
-  if (msg instanceof Error) {
-    extra.msg = msg.stack
-    extra.code = extra.code || msg.code || msg.name
-    extra.err = msg
-  } else if (i <= Logger.ERROR) {
-    const err = new Error(msg)
-    extra.msg = err.stack
-    extra.code = extra.code || err.code
-    extra.err = err
-  } else {
-    extra.msg = msg
-  }
+  data.msg = msg instanceof Error ? msg.message : msg
+  data.code = msg.code || data.code
+  data.err = ErrorContext(msg)
 
   // Format the message
-  msg = this.formatter(new Date(), level, extra)
+  const message = this.formatter(new Date(), level, data)
 
   // Write out the message
-  this._write(this.streams[i], msg, 'utf8', done)
+  this._write(this.streams[i], message, 'utf8', done)
 }
 
 /**
@@ -132,4 +122,30 @@ Logger.prototype.log = function (level, msg, extra, done) {
  */
 Logger.prototype._write = function (stream, msg, enc, done) {
   stream.write(msg, enc, done)
+}
+
+function ErrorContext (err, extra) {
+  if (!(err instanceof Error)) {
+    err = new Error(err)
+  }
+  if (Error.captureStackTrace) {
+    Error.captureStackTrace(err, Logger.prototype.log)
+  }
+  for (const key in extra) {
+    err[key] = extra[key]
+  }
+  err.toJSON = function () {
+    const o = {
+      name: err.name,
+      message: err.message,
+      stack: err.stack
+    }
+    for (const key in err) {
+      if (key !== 'toJSON') {
+        o[key] = err[key]
+      }
+    }
+    return o
+  }
+  return err
 }
