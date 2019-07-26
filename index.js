@@ -7,28 +7,32 @@ const Logger = module.exports = function Logger (options) {
   if (!(this instanceof Logger)) {
     return new Logger(options)
   }
-  options = options || {}
-  this.streams = options.streams || Logger.defaultOptions.streams
+  const opts = options || {}
+
+  // Setup levels
+  this.levels = opts.levels || Logger.levels
+  this.streams = opts.streams || Logger.defaultOptions.streams
+  this.levels.forEach((level, i) => {
+    this[level] = this.log.bind(this, level)
+
+    // Set write stream for level
+    this.streams[i] = this.streams[i] || this.streams
+  })
 
   // Setup formatter
-  let formatter = options.formatter || Logger.defaultOptions.formatter
+  let formatter = opts.formatter || Logger.defaultOptions.formatter
   if (typeof formatter === 'string') {
     formatter = require(`${__dirname}/formatters/${formatter}`)
   }
   this.formatter = formatter
 
-  if (isFinite(options.level)) {
-    this.level = options.level
-  } else if (typeof options.level === 'string' && typeof Logger[options.level.toUpperCase()] === 'number') {
-    this.level = Logger[options.level.toUpperCase()]
+  if (isFinite(opts.level)) {
+    this.level = opts.level
+  } else if (typeof opts.level === 'string' && this.levels.includes(opts.level)) {
+    this.level = this.levels.indexOf(opts.level)
   } else {
     this.level = Logger.defaultOptions.level
   }
-
-  // Add level methods
-  Logger.levels.forEach(function (level) {
-    this[level] = this.log.bind(this, level)
-  }.bind(this))
 }
 
 Logger.levels = [
@@ -88,7 +92,7 @@ Logger.prototype.setLevel = function (level) {
 Logger.prototype.log = function (level, msg, extra, done) {
   // Require a level, matching output stream and that
   // it is greater then the set level of logging
-  const i = Logger.levels.indexOf(level)
+  const i = this.levels.indexOf(level)
   if (
     typeof level !== 'string' ||
     i > this.level ||
