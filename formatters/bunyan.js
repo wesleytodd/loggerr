@@ -1,4 +1,5 @@
-var os = require('os')
+'use strict'
+const os = require('os')
 
 module.exports = function (date, level, data) {
   let l = 0
