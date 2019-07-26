@@ -3,8 +3,7 @@
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
 [![Build Status](https://travis-ci.org/wesleytodd/loggerr.svg?branch=master)](https://travis-ci.org/wesleytodd/loggerr)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/standardjs/standard)
-[![Sauce Test Status](https://saucelabs.com/buildstatus/loggerr)](https://saucelabs.com/u/loggerr)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/standard/standard)
 
 A very simple logger with levels, thats it, no frills.
 
@@ -58,6 +57,19 @@ output: Thu Apr 16 2015 22:05:27 GMT-0500 (CDT) [debug] - {"msg":"Foo"}
 */
 ```
 
+### Customize Levels
+
+You can fully customize the levels for your purposes.  For example, here
+we implement `pino` compatible levels:
+
+```javascript
+const log = new Loggerr({
+  level: [ 'trace', 'debug', 'info', 'warn', 'error', 'fatal' ]
+})
+
+log.trace('Example trace log')
+```
+
 ## Log Formatting
 
 Loggerr supports formatting via formatter functions.  The default formatter outputs a timestamp, the log level and the messages formatted as json.  But you can provide a custom formatter function with the `formatter` options.  Formatter functions take three parameters: `date`, `level`, `data`.  Say we want to output the log message with a color based on the level:
@@ -90,16 +102,26 @@ const logger = new Loggerr({
 })
 ```
 
-There are two built in formatters:
+There are a few bundled in formatters:
 
 - `default`: Outputs date, level and json
-- `cli`: Outputs just the message and json data, colorized and formatted
+- `cli`: Outputs the message and json data, colorized and formatted
+- `bunyan`: Compatible format to `bunyan`
+- `browser`: Relies on `console.log`, so just returns the `data`
 
-To use the cli formatter just require it and pass the `formatter` options:
+To use the cli formatter you can require it and pass the `formatter` options:
 
 ```javascript
 const logger = new Loggerr({
   formatter: require('loggerr/formatters/cli')
+})
+```
+
+You can also just specify the string name of the formatter for bundled formatters:
+
+```javascript
+const logger = new Loggerr({
+  formatter: 'cli'
 })
 ```
 
