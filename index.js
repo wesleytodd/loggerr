@@ -111,7 +111,17 @@ Logger.prototype.log = function (level, msg, extra, done) {
   // Set message on extra object
   data.msg = msg instanceof Error ? msg.message : msg
   data.code = msg.code || data.code
-  data.err = ErrorContext(msg)
+
+  // Lazy create error
+  let err
+  Object.defineProperty(data, 'err', {
+    enumerable: true,
+    configurable: true,
+    get: () => {
+      err = err || ErrorContext(msg)
+      return err
+    }
+  })
 
   // Format the message
   const message = this.formatter(new Date(), level, data)
