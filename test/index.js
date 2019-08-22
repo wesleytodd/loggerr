@@ -74,4 +74,23 @@ describe('Logger - basic', function () {
       assert(Logger() instanceof Logger)
     })
   })
+
+  it('should log custom levels', function (done) {
+    const w = writer((chunk) => {
+      const d = chunk[2]
+      assert.strictEqual(chunk[1], 'test')
+      assert.strictEqual(d.msg, 'A test message')
+      done()
+    })
+    const logger = new Logger({
+      streams: Logger.levels.map(() => w),
+      levels: ['test', 'debug'],
+      level: 'test',
+      formatter: (date, level, data) => {
+        return [date, level, data]
+      }
+    })
+    logger.debug('Not logged')
+    logger.test('A test message')
+  })
 })
