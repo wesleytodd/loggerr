@@ -2,6 +2,7 @@
 
 [![NPM Version](https://img.shields.io/npm/v/loggerr.svg)](https://npmjs.org/package/loggerr)
 [![NPM Downloads](https://img.shields.io/npm/dm/loggerr.svg)](https://npmjs.org/package/loggerr)
+[![CI Test](https://github.com/pkgjs/support/workflows/Tests/badge.svg)](https://github.com/wesleytodd/loggerr/actions)
 [![Build Status](https://travis-ci.org/wesleytodd/loggerr.svg?branch=master)](https://travis-ci.org/wesleytodd/loggerr)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](https://github.com/standard/standard)
 
@@ -12,7 +13,7 @@ A very simple logger.
 - Syncronous output (great for cli's, browser and tools)
 - Levels (built-in and customizable)
 - Formatting (built-in and customizable)
-- `Loggerr` is dependency free (*fromatters are not*)
+- `Loggerr` is dependency free (*formatters are not*)
 - Always captures stack trace on error logs
 - Tiny filesize
 - The `cli` formatter 🚀
