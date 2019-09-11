@@ -1,48 +1,58 @@
 'use strict'
-const Loggerr = require('../')
 const util = require('util')
 const chalk = require('chalk')
 
-module.exports = function (date, level, data) {
-  let color = chalk.cyan
-  const i = Loggerr.levels.indexOf(level)
-  switch (i) {
-    case Loggerr.EMERGENCY:
-    case Loggerr.ALERT:
-    case Loggerr.CRITICAL:
-    case Loggerr.ERROR:
-      color = chalk.red
-      break
-    case Loggerr.WARNING:
-    case Loggerr.NOTICE:
-      color = chalk.yellow
-      break
-  }
+module.exports = createFormatter()
+module.exports.create = createFormatter
 
-  // level formatting
-  const l = color.underline(level) + (Array(Math.max(8 - level.length, 0)).join(' '))
+function createFormatter (options) {
+  const opts = Object.assign({
+    levels: {
+      emergency: 'red',
+      alert: 'red',
+      critical: 'red',
+      error: 'red',
+      warning: 'yellow',
+      notice: 'yellow',
+      info: 'cyan',
+      debug: 'cyan'
+    },
+    errorLevels: [
+      'error',
+      'critical',
+      'alert',
+      'emergency'
+    ]
+  }, options)
 
-  // hanlde multi-line messages
-  let lines = data.msg.split('\n')
-  const firstLine = lines.shift()
+  return (date, level, data) => {
+    const color = chalk[opts.levels[level]] || chalk.white
 
-  // display stack trace for errors levels
-  if (i <= Loggerr.ERROR) {
-    lines = lines.concat(data.err.stack.split('\n'))
-  }
+    // level formatting
+    const l = color.underline(level) + (Array(Math.max(8 - level.length, 0)).join(' '))
 
-  // dim all but first line
-  lines = lines.map((s) => chalk.grey(s))
-  lines = [firstLine, ...lines].join('\n')
+    // hanlde multi-line messages
+    let lines = data.msg.split('\n')
+    const firstLine = lines.shift()
 
-  // format details
-  const details = Object.keys(data).reduce((str, key) => {
-    // dont display the message or error in details
-    if (data[key] && key !== 'msg' && key !== 'err') {
-      str += `\n  ${chalk.grey('-')} ${key}: ${util.inspect(data[key], { colors: true })}`
+    // display stack trace for errors levels
+    if (opts.errorLevels.includes(level)) {
+      lines = lines.concat(data.err.stack.split('\n'))
     }
-    return str
-  }, '')
 
-  return `${l} ${chalk.grey('›')} ${lines} ${details}\n`
+    // dim all but first line
+    lines = lines.map((s) => chalk.grey(s))
+    lines = [firstLine, ...lines].join('\n')
+
+    // format details
+    const details = Object.keys(data).reduce((str, key) => {
+      // dont display the message or error in details
+      if (data[key] && key !== 'msg' && key !== 'err') {
+        str += `\n  ${chalk.grey('-')} ${key}: ${util.inspect(data[key], { colors: true })}`
+      }
+      return str
+    }, '')
+
+    return `${l} ${chalk.grey('›')} ${lines} ${details}\n`
+  }
 }

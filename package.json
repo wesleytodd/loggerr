@@ -4,8 +4,9 @@
   "description": "A simple logger to console or file",
   "main": "index.js",
   "scripts": {
-    "test": "standard && mocha",
+    "test": "standard && npm run examples && mocha",
     "test-browser": "mochify --wd test/index.js",
+    "examples": "for i in examples/*; do echo \"\n======-----======\n  $i\n======-----======\n\"; node \"$i\"; done",
     "prepublishOnly": "npm t",
     "postpublish": "git push && git push --tags"
   },
