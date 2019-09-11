@@ -2,7 +2,7 @@
 const { describe, it } = require('mocha')
 const assert = require('assert')
 const util = require('util')
-const Logger = require('../')
+const Logger = require('../').Loggerr
 const writer = function (cb) {
   return { write: cb }
 }
