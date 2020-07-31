@@ -40,8 +40,8 @@ function createFormatter (options) {
       lines = lines.concat(data.err.stack.split('\n'))
     }
 
-    // dim all but first line
-    lines = lines.map((s) => chalk.grey(s))
+    // dim and trim all but first line
+    lines = lines.map((s) => chalk.grey(s.trim()))
     lines = [firstLine, ...lines].join('\n')
 
     // format details
