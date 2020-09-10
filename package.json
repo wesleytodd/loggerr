@@ -1,6 +1,6 @@
 {
   "name": "loggerr",
-  "version": "3.0.0-2",
+  "version": "3.0.0-3",
   "description": "A simple logger to console or file",
   "main": "index.js",
   "type": "commonjs",
@@ -17,8 +17,8 @@
     "logger",
     "file",
     "console",
-	"cli",
-	"sync"
+    "cli",
+    "sync"
   ],
   "author": "Wes Todd",
   "license": "ISC",
