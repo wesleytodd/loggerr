@@ -3,24 +3,25 @@
   "version": "3.0.0-2",
   "description": "A simple logger to console or file",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "test": "standard && npm run examples && mocha",
-    "test-browser": "mochify --wd test/index.js",
+    "test:debug": "mocha --inspect --inspect-brk --timeout=0",
+    "test:cover": "c8 mocha",
     "examples": "for i in examples/*; do echo \"\n======-----======\n  $i\n======-----======\n\"; node \"$i\"; done",
-    "prepublishOnly": "npm t",
+    "release": "npm t && standard-version && npm publish",
     "postpublish": "git push && git push --tags"
   },
   "keywords": [
     "log",
     "logger",
     "file",
-    "console"
+    "console",
+	"cli",
+	"sync"
   ],
   "author": "Wes Todd",
   "license": "ISC",
-  "directories": {
-    "test": "test"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/wesleytodd/loggerr.git"
@@ -34,7 +35,8 @@
   },
   "devDependencies": {
     "mocha": "^6.2.0",
-    "mochify": "^6.3.0",
-    "standard": "^13.1.0"
+    "standard": "^13.1.0",
+    "standard-version": "^9.0.0",
+    "c8": "^7.3.0"
   }
 }
