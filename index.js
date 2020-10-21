@@ -144,9 +144,9 @@ module.exports.Loggerr = Loggerr
 function ErrorContext (err, extra) {
   if (!(err instanceof Error)) {
     err = new Error(err)
-  }
-  if (Error.captureStackTrace) {
-    Error.captureStackTrace(err, Loggerr.prototype.log)
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(err, Loggerr.prototype.log)
+    }
   }
   for (const key in extra) {
     err[key] = extra[key]
