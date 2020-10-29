@@ -7,6 +7,7 @@ module.exports.create = createFormatter
 
 function createFormatter (options) {
   const opts = Object.assign({
+    colors: true,
     levels: {
       emergency: 'red',
       alert: 'red',
@@ -24,6 +25,10 @@ function createFormatter (options) {
       'emergency'
     ]
   }, options)
+
+  if (opts.colors === false) {
+    chalk.level = 0
+  }
 
   return (date, level, data) => {
     const color = chalk[opts.levels[level]] || chalk.white
@@ -48,7 +53,7 @@ function createFormatter (options) {
     const details = Object.keys(data).reduce((str, key) => {
       // dont display the message or error in details
       if (data[key] && key !== 'msg' && key !== 'err') {
-        str += `\n  ${chalk.grey('-')} ${key}: ${util.inspect(data[key], { colors: true })}`
+        str += `\n  ${chalk.grey('-')} ${key}: ${util.inspect(data[key], { colors: opts.colors !== false })}`
       }
       return str
     }, '')
