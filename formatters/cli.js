@@ -42,7 +42,9 @@ function createFormatter (options) {
 
     // display stack trace for errors levels
     if (opts.errorLevels.includes(level)) {
-      lines = lines.concat(data.err.stack.split('\n'))
+      // Remove multi-line message from stack
+      const stack = data.err.stack.replace(data.msg, firstLine)
+      lines = lines.concat(stack.split('\n'))
     }
 
     // dim and trim all but first line
