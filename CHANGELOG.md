@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.0](https://github.com/wesleytodd/loggerr/compare/v3.2.0...v3.3.0) (2021-04-19)
+
+
+### Features
+
+* log error properties as extra data ([c7f64ca](https://github.com/wesleytodd/loggerr/commit/c7f64caf1cf2dcef5cbd0ed1f59dfca92f55717c))
+
 ## [3.2.0](https://github.com/wesleytodd/loggerr/compare/v3.1.0...v3.2.0) (2021-01-15)
 
 
