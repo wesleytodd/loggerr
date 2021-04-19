@@ -109,8 +109,17 @@ Loggerr.prototype.log = function (level, msg, extra, done) {
   const data = extra || {}
 
   // Set message on extra object
-  data.msg = msg instanceof Error ? msg.message : msg
+  const isErrorInstance = msg instanceof Error
+  data.msg = isErrorInstance ? msg.message : msg
   data.code = msg.code || data.code
+  // If this is an error, copy over other properties on the error
+  if (isErrorInstance) {
+    for (const key in msg) {
+      if (Object.prototype.hasOwnProperty.call(msg, key)) {
+        data[key] = msg[key]
+      }
+    }
+  }
 
   // Lazy create error
   let err
