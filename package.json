@@ -8,6 +8,7 @@
     "test": "standard && npm run examples && mocha",
     "test:debug": "mocha --inspect --inspect-brk --timeout=0",
     "test:cover": "c8 mocha",
+    "test:only": "mocha",
     "examples": "for i in examples/*; do echo \"\n======-----======\n  $i\n======-----======\n\"; node \"$i\"; done",
     "release": "npm t && standard-version && npm publish",
     "postpublish": "git push && git push --tags"
@@ -34,8 +35,11 @@
     "chalk": "^4.1.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "c8": "^7.3.0",
     "mocha": "^6.2.0",
+    "rollup": "^4.19.0",
     "standard": "^13.1.0",
     "standard-version": "^9.0.0"
   }
