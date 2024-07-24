@@ -166,3 +166,34 @@ new Loggerr({
   streams: Loggerr.levels.map(() => logfile)
 })
 ```
+
+## Bundling with Rollup
+
+There is a dynamic require in this library. If you intend to use this with a bundler (ex Rollup) you may need to configure it to include the correct formatter if you pass that
+option as a string (ex `formatter: 'cli'`).
+
+Example:
+
+```javascript
+// rollup.config.js
+const { nodeResolve } = require('@rollup/plugin-node-resolve');
+const commonjs = require('@rollup/plugin-commonjs');
+
+module.exports = {
+  input: 'index.js',
+  output: {
+    file: 'bundle.js',
+    format: 'commonjs'
+  },
+  plugins: [
+    nodeResolve(),
+    commonjs({
+      dynamicRequireTargets: [
+        './node_modules/loggerr/formatters/cli.js',
+      ]
+    })
+  ]
+};
+```
+
+The values above will change based on your application, but the main important thing is the `dynamicRequireTargets` configuration.

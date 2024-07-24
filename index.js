@@ -22,7 +22,7 @@ function Loggerr (options) {
   // Setup formatter
   let formatter = opts.formatter || Loggerr.defaultOptions.formatter
   if (typeof formatter === 'string') {
-    formatter = require(`${__dirname}/formatters/${formatter}`)
+    formatter = require(`./formatters/${formatter}.js`)
   }
   this.formatter = formatter
 
