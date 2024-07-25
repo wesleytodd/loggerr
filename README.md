@@ -17,7 +17,7 @@ A very simple logger.
 - Tiny filesize
 - The `cli` formatter 🚀
 
-![cli formatter example](https://github.com/wesleytodd/loggerr/blob/master/cli.png)
+![cli formatter example](https://github.com/wesleytodd/loggerr/blob/main/cli.png)
 
 ## Install
 
@@ -78,7 +78,7 @@ const log = new Loggerr({
 log.trace('Example trace log')
 ```
 
-See the [example of custom levels for cli output](https://github.com/wesleytodd/loggerr/blob/master/examples/custom-cli.js).
+See the [example of custom levels for cli output](https://github.com/wesleytodd/loggerr/blob/main/examples/custom-cli.js).
 
 ## Log Formatting
 
