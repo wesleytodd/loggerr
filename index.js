@@ -58,25 +58,29 @@ Loggerr.levels.forEach(function (level, i) {
 Loggerr.defaultOptions = {
   level: Loggerr.WARNING,
   formatter: require('./formatters/default'),
-  streams: typeof window === 'undefined' ? Loggerr.levels.map(function (level, i) {
-    return i > Loggerr.WARNING ? process.stdout : process.stderr
-  }) : Loggerr.levels.map(function (level, i) {
-    return i > Loggerr.WARNING ? {
-      write: function (msg, encoding, done) {
-        console.log(msg)
-        if (typeof done === 'function') {
-          done()
-        }
-      }
-    } : {
-      write: function (msg, encoding, done) {
-        console.error(msg)
-        if (typeof done === 'function') {
-          done()
-        }
-      }
-    }
-  })
+  streams: typeof window === 'undefined'
+    ? Loggerr.levels.map(function (level, i) {
+      return i > Loggerr.WARNING ? process.stdout : process.stderr
+    })
+    : Loggerr.levels.map(function (level, i) {
+      return i > Loggerr.WARNING
+        ? {
+            write: function (msg, encoding, done) {
+              console.log(msg)
+              if (typeof done === 'function') {
+                done()
+              }
+            }
+          }
+        : {
+            write: function (msg, encoding, done) {
+              console.error(msg)
+              if (typeof done === 'function') {
+                done()
+              }
+            }
+          }
+    })
 }
 
 /**
