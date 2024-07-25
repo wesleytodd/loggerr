@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/wesleytodd/loggerr/compare/v3.3.0...v4.0.0) (2024-07-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* support bundlers like rollup, drops old node versions
+
+### Bug Fixes
+
+* add funding.yml ([a6e3235](https://github.com/wesleytodd/loggerr/commit/a6e3235cd2328bc9bcf19b78d1fd201e70d8f7c2))
+* **devDeps:** c8@^10.1.2 ([f0dac84](https://github.com/wesleytodd/loggerr/commit/f0dac846c548b017a79b3f88877765921268b3e8))
+* **devDeps:** standard-version@^9.5.0 ([53a2f4b](https://github.com/wesleytodd/loggerr/commit/53a2f4b53757c07ebb444f09a9c226a60295414e))
+* **devDeps:** standard@17.1.0 ([3b8c3b8](https://github.com/wesleytodd/loggerr/commit/3b8c3b8a5df59cfa0fcc76f1ac815e132fc9a59c))
+* readme branch link ([69be749](https://github.com/wesleytodd/loggerr/commit/69be7491d379dbe0c8fc5f744c9ec3508d1d82e6))
+* support bundlers like rollup, drops old node versions ([f136fd1](https://github.com/wesleytodd/loggerr/commit/f136fd1b04e844502cc507bf11e5da75f5379580))
+
 ## [3.3.0](https://github.com/wesleytodd/loggerr/compare/v3.2.0...v3.3.0) (2021-04-19)
 
 
