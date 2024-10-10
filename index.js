@@ -115,7 +115,9 @@ Loggerr.prototype.log = function (level, msg, extra, done) {
   // Set message on extra object
   const isErrorInstance = msg instanceof Error
   data.msg = isErrorInstance ? msg.message : msg
-  data.code = msg.code || data.code
+  if (msg.code) {
+    data.code = msg.code
+  }
   // If this is an error, copy over other properties on the error
   if (isErrorInstance) {
     for (const key in msg) {
@@ -140,7 +142,17 @@ Loggerr.prototype.log = function (level, msg, extra, done) {
   const message = this.formatter(new Date(), level, data)
 
   // Write out the message
-  this._write(this.streams[i], message, 'utf8', done)
+  this.write(i, message, done)
+}
+
+/**
+ * Write to the given level stream
+ */
+Loggerr.prototype.write = function (level, msg, done) {
+  const i = typeof level === 'string' ? this.levels.indexOf(level) : level
+
+  // Write out the message
+  this._write(this.streams[i], msg, 'utf8', done)
 }
 
 /**
