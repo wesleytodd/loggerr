@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/wesleytodd/loggerr/compare/v4.0.0...v4.1.0) (2024-10-10)
+
+
+### Features
+
+* added cli-simple formatter and .write for unmodified logging ([92a69f6](https://github.com/wesleytodd/loggerr/commit/92a69f69d573b049b3f331a081e0025a8977a352))
+
+
+### Bug Fixes
+
+* **ci:** updated checkout and setup-node actions and branch ([ffea84b](https://github.com/wesleytodd/loggerr/commit/ffea84b65680f406a8f08defd724ec2afd6df28b))
+
 ## [4.0.0](https://github.com/wesleytodd/loggerr/compare/v3.3.0...v4.0.0) (2024-07-25)
 
 
