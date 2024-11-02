@@ -42,5 +42,6 @@
     "rollup": "^4.19.0",
     "standard": "^17.1.0",
     "standard-version": "^9.5.0"
-  }
+  },
+  "types": "./loggerr.d.ts"
 }
