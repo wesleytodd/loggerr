@@ -1,6 +1,6 @@
 
 declare module 'loggerr' {
-  export type Formatter = 'browser' | 'bunyan' | 'cli' | 'default';
+  export type Formatter = 'browser' | 'bunyan' | 'cli' | 'cli-simple' | 'default';
 
   export interface LoggerrOptions<T extends readonly string[] = DefaultLevels> {
     formatter?: Formatter | FormatterFunction;
