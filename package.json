@@ -5,10 +5,11 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "test": "standard && npm run examples && mocha",
+    "test": "standard && npm run examples && mocha && npm run test:types",
     "test:debug": "mocha --inspect --inspect-brk --timeout=0",
     "test:cover": "c8 mocha",
     "test:only": "mocha",
+    "test:types": "tsc --noEmit test/types.ts",
     "examples": "for i in examples/*; do echo \"\n======-----======\n  $i\n======-----======\n\"; node \"$i\"; done",
     "release": "npm t && standard-version && npm publish",
     "postpublish": "git push && git push --tags"
@@ -37,10 +38,14 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
+    "@types/node": "^22.8.7",
     "c8": "^10.1.2",
+    "expect-type": "^1.1.0",
     "mocha": "^10.7.0",
     "rollup": "^4.19.0",
     "standard": "^17.1.0",
-    "standard-version": "^9.5.0"
-  }
+    "standard-version": "^9.5.0",
+    "typescript": "^5.6.3"
+  },
+  "types": "./loggerr.d.ts"
 }
