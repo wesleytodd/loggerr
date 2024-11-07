@@ -33,12 +33,12 @@
   },
   "homepage": "https://github.com/wesleytodd/loggerr",
   "dependencies": {
-    "chalk": "^4.1.0"
+    "chalk": "^4.1.0",
+    "@types/node": "^22.9.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "@types/node": "^22.8.7",
     "c8": "^10.1.2",
     "expect-type": "^1.1.0",
     "mocha": "^10.7.0",
