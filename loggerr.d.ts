@@ -44,6 +44,7 @@ declare module 'loggerr' {
       'info',
       'debug',
     ];
+    Loggerr: LoggerrConstructor
   }
 
   type DefaultOptions = {
@@ -95,8 +96,13 @@ declare module 'loggerr' {
     new <const T extends readonly string[] = DefaultLevels>(options?: LoggerrOptions<T>): Loggerr<T>;
   }
 
-  const LoggerrConstructor: LoggerrConstructor;
+  /**
+   * The `Loggerr` prop is only present on the default instance.
+   */
+  const DefaultLoggerr: Loggerr<DefaultLevels> & { Loggerr: typeof Loggerr };
 
-  export default LoggerrConstructor;
+  export const Loggerr: LoggerrConstructor;
+
+  export default DefaultLoggerr;
 }
 

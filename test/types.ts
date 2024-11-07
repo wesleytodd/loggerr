@@ -5,33 +5,81 @@
  */
 
 import { expectTypeOf } from 'expect-type';
-import Loggerr, { Formatter, FormatterFunction, LogFunction } from 'loggerr';
+import DefaultLoggerr, {
+  Loggerr,
+  Formatter,
+  FormatterFunction,
+  LogFunction,
+  DefaultLevels,
+} from 'loggerr';
 
-expectTypeOf<typeof Loggerr>().toBeConstructibleWith({
-  levels: ['butts', 'feet', 'armpits'],
-  formatter: (date, level, data) => `${date} ${level} ${data}`,
-  streams: ([] as NodeJS.WritableStream[]).fill(process.stderr, 0, 3),
-});
+/**
+ * Checks the default export, which is an instance of `Loggerr` with the default
+ * levels.
+ */
+{
+  expectTypeOf<typeof DefaultLoggerr>().toEqualTypeOf<
+    Loggerr<DefaultLevels> & { Loggerr: typeof Loggerr }
+  >();
 
-expectTypeOf<Loggerr['DEBUG']>().toEqualTypeOf<6>();
+  expectTypeOf<typeof DefaultLoggerr.Loggerr>().toEqualTypeOf(Loggerr);
 
-const defaultLogger = new Loggerr();
+  expectTypeOf<typeof DefaultLoggerr.Loggerr>().toBeConstructibleWith({
+    levels: ['butts', 'feet', 'armpits'],
+    formatter: (date, level, data) => `${date} ${level} ${data}`,
+    streams: ([] as NodeJS.WritableStream[]).fill(process.stderr, 0, 3),
+  });
+}
 
-expectTypeOf<(typeof defaultLogger)['level']>().toBeNumber();
+/**
+ * Check the `Loggerr` export, which is a class w/ static props
+ */
+{
+  expectTypeOf<typeof Loggerr.Loggerr>().toEqualTypeOf<typeof Loggerr>();
 
-expectTypeOf<(typeof defaultLogger)['debug']>().toMatchTypeOf<LogFunction>();
+  expectTypeOf<typeof Loggerr.Loggerr>().toBeConstructibleWith({
+    levels: ['butts', 'feet', 'armpits'],
+    formatter: (date, level, data) => `${date} ${level} ${data}`,
+    streams: ([] as NodeJS.WritableStream[]).fill(process.stderr, 0, 3),
+  });
 
-const customLogger = new Loggerr({ levels: ['butts', 'feet', 'armpits'] });
+  expectTypeOf<(typeof Loggerr)['DEBUG']>().toEqualTypeOf<6>();
+}
 
-expectTypeOf<
-  (typeof customLogger)['formatter']
->().toMatchTypeOf<FormatterFunction>();
+/**
+ * Test a new `Loggerr` instance with default levels
+ */
+{
+  const newDefaultLoggerr = new Loggerr();
 
-expectTypeOf<'bunyan'>().toMatchTypeOf<Formatter>();
+  expectTypeOf<typeof newDefaultLoggerr>().toEqualTypeOf<Loggerr>();
 
-expectTypeOf<(typeof customLogger)['butts']>().toEqualTypeOf<LogFunction>();
+  expectTypeOf<(typeof newDefaultLoggerr)['level']>().toMatchTypeOf<number>();
 
-expectTypeOf(customLogger.setLevel('butts')).toEqualTypeOf<void>();
-expectTypeOf(customLogger.setLevel(0)).toEqualTypeOf<void>();
+  expectTypeOf<
+    (typeof newDefaultLoggerr)['debug']
+  >().toMatchTypeOf<LogFunction>();
 
-expectTypeOf(customLogger.log('feet', 'hello')).toEqualTypeOf<void>();
+  /* @ts-expect-error - Only the default export instance has a `Loggerr` prop */
+  expectTypeOf<typeof newDefaultLoggerr['Loggerr']>().not.toBeUndefined();
+}
+
+/**
+ * Check behavior of new `Loggerr` instance with custom levels
+ */
+{
+  const customLogger = new Loggerr({ levels: ['butts', 'feet', 'armpits'] });
+
+  expectTypeOf<
+    (typeof customLogger)['formatter']
+  >().toMatchTypeOf<FormatterFunction>();
+
+  expectTypeOf<'bunyan'>().toMatchTypeOf<Formatter>();
+
+  expectTypeOf<(typeof customLogger)['butts']>().toEqualTypeOf<LogFunction>();
+
+  expectTypeOf(customLogger.setLevel('butts')).toEqualTypeOf<void>();
+  expectTypeOf(customLogger.setLevel(0)).toEqualTypeOf<void>();
+
+  expectTypeOf(customLogger.log('feet', 'hello')).toEqualTypeOf<void>();
+}
