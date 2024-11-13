@@ -164,7 +164,7 @@ declare module 'loggerr' {
    */
   export type LogFunction = (
     msg: string | Error,
-    extra?: Record<string, unknown>,
+    extraOrDone?: Record<string, unknown> | (() => void),
     done?: () => void,
   ) => void;
 
