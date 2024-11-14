@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/wesleytodd/loggerr/compare/v4.1.0...v4.2.0) (2024-11-14)
+
+
+### Features
+
+* **types:** adds types ([#17](https://github.com/wesleytodd/loggerr/issues/17)) ([f82c5ff](https://github.com/wesleytodd/loggerr/commit/f82c5ff89b66baadb6d22f40b090515aac0a49ea))
+
+
+### Bug Fixes
+
+* **test:** use vlt in tests ([e7be1b1](https://github.com/wesleytodd/loggerr/commit/e7be1b198cd72da598393e37d6910bd5cb93279f))
+* **types:** fix the types ([eb6245e](https://github.com/wesleytodd/loggerr/commit/eb6245eec753f89a081113d05c305244fca4b70b))
+
 ## [4.1.0](https://github.com/wesleytodd/loggerr/compare/v4.0.0...v4.1.0) (2024-10-10)
 
 
