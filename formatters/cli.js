@@ -1,6 +1,7 @@
 'use strict'
 const util = require('util')
 const chalk = require('chalk')
+const stringLen = require('string-length')
 
 module.exports = createFormatter()
 module.exports.create = createFormatter
@@ -55,7 +56,11 @@ function createFormatter (options) {
     const details = Object.keys(data).reduce((str, key) => {
       // dont display the message or error in details
       if (data[key] && key !== 'msg' && key !== 'err') {
-        str += `\n  ${chalk.grey('-')} ${key}: ${util.inspect(data[key], { colors: opts.colors !== false })}`
+        const prefix = `  ${chalk.grey('-')}`
+        const prefixPad = Array(stringLen(prefix)).join(' ')
+        const [firstLine, ...rest] = util.inspect(data[key], { colors: opts.colors !== false }).split('\n')
+        str += `\n${prefix} ${key}: ${firstLine}`
+        str += '\n' + rest.map((l) => prefixPad + l).join('\n')
       }
       return str
     }, '')
