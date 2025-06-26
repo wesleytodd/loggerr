@@ -6,6 +6,7 @@ module.exports.create = createFormatter
 
 function createFormatter (options = {}) {
   const colors = typeof options.colors !== 'undefined' ? options.colors : process.stdout.isTTY
+  const depth = typeof options.depth !== 'undefined' ? options.depth : 2
   const errorLevels = options.errorLevels || [
     'error',
     'critical',
@@ -29,6 +30,6 @@ function createFormatter (options = {}) {
       return d
     }, null)
 
-    return `${err ? err.stack : data.msg}\n${details ? util.inspect(details, { colors }) + '\n' : ''}`
+    return `${err ? err.stack : data.msg}\n${details ? util.inspect(details, { colors, depth }) + '\n' : ''}`
   }
 }
