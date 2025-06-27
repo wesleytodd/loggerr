@@ -38,8 +38,8 @@
     "string-length": "^4.0.2"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^26.0.1",
-    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
     "c8": "^10.1.2",
     "expect-type": "^1.1.0",
     "mocha": "^11.7.1",
