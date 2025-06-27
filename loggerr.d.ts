@@ -1,6 +1,12 @@
-/// <reference types="node" />
-
 declare module 'loggerr' {
+  /**
+   * NodeJS.WritableStream "Like"
+   *
+   * We only call .write in this one form
+   */
+  interface WritableStreamLike {
+    write(chunk: any, encoding: 'utf8', callback?: (error: Error | null | undefined) => void): boolean;
+  }
 
   /**
    * Builtin formatters
@@ -35,7 +41,7 @@ declare module 'loggerr' {
     formatter?: Formatter | FormatterFunction;
     level?: LevelRef<T>;
     levels?: T;
-    streams?: TupleOfLength<NodeJS.WritableStream, T['length']>;
+    streams?: TupleOfLength<WritableStreamLike, T['length']>;
   }
 
   /**
@@ -76,8 +82,8 @@ declare module 'loggerr' {
     Loggerr: LoggerrConstructor;
   }
 
-  type Stderr = NodeJS.Process['stdout'];
-  type Stdout = NodeJS.Process['stdout'];
+  type Stderr = WritableStreamLike;
+  type Stdout = WritableStreamLike;
 
   type DefaultStreams = readonly [
     Stderr, // emergency
@@ -117,7 +123,7 @@ declare module 'loggerr' {
     
     public level: Indices<T>;
     
-    public streams: TupleOfLength<NodeJS.WritableStream, T['length']>
+    public streams: TupleOfLength<WritableStreamLike, T['length']>
 
     public levels: T;
 

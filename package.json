@@ -33,7 +33,6 @@
   },
   "homepage": "https://github.com/wesleytodd/loggerr",
   "dependencies": {
-    "@types/node": "^22.9.0",
     "chalk": "^4.1.0",
     "string-length": "^4.0.2"
   },
