@@ -8,14 +8,12 @@ const { rollup } = require('rollup')
 describe('Bundlers', () => {
   it('should bundle with rollup', async () => {
     const bundle = await rollup({
-      input: {
-        main: path.join(__dirname, '..', 'examples', 'cli')
-      },
+      input: path.join(__dirname, '..', 'examples', 'cli'),
       plugins: [
         require('@rollup/plugin-node-resolve')(),
         require('@rollup/plugin-commonjs')({
           dynamicRequireTargets: [
-            path.join(__dirname, '..', 'formatters', 'cli.js')
+            path.join('formatters', 'cli.js')
           ]
         })
       ]
