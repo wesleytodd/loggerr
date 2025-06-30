@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.0](https://github.com/wesleytodd/loggerr/compare/v4.2.0...v4.3.0) (2025-06-30)
+
+
+### Features
+
+* align cli detail output with key ([5189a1a](https://github.com/wesleytodd/loggerr/commit/5189a1a30ad0e34797a4badf87bc1f2b4063bcd5))
+* **formatter:** add simple-cli depth option and default ([#22](https://github.com/wesleytodd/loggerr/issues/22)) ([038fa86](https://github.com/wesleytodd/loggerr/commit/038fa86d4daf234d5b4d8174ac97febc635a9b8f))
+* remove depdendecy on @types/node ([#24](https://github.com/wesleytodd/loggerr/issues/24)) ([e12bb7c](https://github.com/wesleytodd/loggerr/commit/e12bb7c1b90dc3cc0d643efed0dd4784562b7a8e))
+
+
+### Bug Fixes
+
+* **ci:** add node@24.x to CI ([#26](https://github.com/wesleytodd/loggerr/issues/26)) ([020877d](https://github.com/wesleytodd/loggerr/commit/020877d9372733839c7f03bc183a9f2f2ad6b111))
+* **dev-deps:** mocha@^11.7.1 ([983f4b9](https://github.com/wesleytodd/loggerr/commit/983f4b9c7f362b1db5de4e3971d61db9db7d0331))
+* **dev-deps:** rollup plugins updated ([4a1d9d1](https://github.com/wesleytodd/loggerr/commit/4a1d9d123ffd1d1d6d96067a5748545fbaffad3a))
+* **dev-deps:** rollup@^4.44.1 ([344464f](https://github.com/wesleytodd/loggerr/commit/344464fb0141cadc3ca23eb7cff445fac2058683))
+
 ## [4.2.0](https://github.com/wesleytodd/loggerr/compare/v4.1.0...v4.2.0) (2024-11-14)
 
 
