@@ -3,7 +3,7 @@
  */
 
 import expect = require('expect-type');
-import DefaultLoggerr = require('loggerr');
+import DefaultLoggerr = require('../');
 import type {
   Loggerr,
   Formatter,
@@ -13,7 +13,7 @@ import type {
   Levels,
   Indices,
   TupleOfLength,
-} from 'loggerr';
+} from '../';
 
 // #region default levels
 expect.expectTypeOf<DefaultLevels>().toMatchTypeOf<Levels>();
