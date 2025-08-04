@@ -148,7 +148,7 @@ way is to just map over `Loggerr.levels`, this is how we set the defaults:
 ```javascript
 new Loggerr({
   streams: Loggerr.levels.map(function (level, i) {
-    return i > Loggerr.WARNING ? process.stdin : process.stderr
+    return i > Loggerr.WARNING ? process.stdout : process.stderr
   })
 })
 ```
