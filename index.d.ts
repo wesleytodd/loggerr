@@ -182,6 +182,19 @@ declare namespace DefaultLoggerr {
       msg: Uint8Array | string,
       done?: () => void,
     ): void;
+
+    /**
+     * Writes to a stream if level is satisfied
+     * 
+     * @param level Level 
+     * @param msg Message
+     * @param done "Done" callback
+     */
+    writeLevel(
+      level: LevelRef<T>,
+      msg: Uint8Array | string,
+      done?: () => void,
+    ): void;
   } & {
     [key in T[number]]: LogFunction;
   }

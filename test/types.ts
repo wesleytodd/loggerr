@@ -53,6 +53,11 @@ expect.expectTypeOf<(typeof newDefaultLoggerr)['level']>().toMatchTypeOf<
   Indices<DefaultLevels>
 >();
 
+expect.expectTypeOf(newDefaultLoggerr.writeLevel('info', 'message')).toEqualTypeOf<void>();
+expect.expectTypeOf(newDefaultLoggerr.writeLevel('info', 'message', () => {})).toEqualTypeOf<void>();
+// @ts-expect-error - no such level
+expect.expectTypeOf(newDefaultLoggerr.writeLevel('silly', 'message')).toEqualTypeOf<void>();
+
 expect.expectTypeOf<
   (typeof newDefaultLoggerr)['debug']
 >().toMatchTypeOf<LogFunction>();
