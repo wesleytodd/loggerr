@@ -197,3 +197,10 @@ module.exports = {
 ```
 
 The values above will change based on your application, but the main important thing is the `dynamicRequireTargets` configuration.
+
+## Contributing
+
+Contributions are welcome! To get started contributing, ensure you have a modern Node.js version and run `node --run
+setup`. To run the tests run `npm t`, and to run the lint `npm run lint [-- --fix]`. When pushing commits, kindly use
+[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) but I will be sure to clean things up before we
+merge.

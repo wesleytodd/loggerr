@@ -5,11 +5,13 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "test": "standard && npm run examples && mocha && npm run test:types",
+    "setup": "npm install",
+    "test": "npm run examples && mocha && npm run test:types",
     "test:debug": "mocha --inspect --inspect-brk --timeout=0",
     "test:cover": "c8 mocha",
     "test:only": "mocha",
     "test:types": "tsc --noEmit test/types.ts",
+    "lint": "standard",
     "examples": "for i in examples/*; do echo \"\n======-----======\n  $i\n======-----======\n\"; node \"$i\"; done",
     "release": "npm t && standard-version && npm publish",
     "postpublish": "git push && git push --tags"
