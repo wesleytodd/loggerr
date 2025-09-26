@@ -22,6 +22,7 @@ type DefaultOptions = Readonly<{
   level: LoggerrConstructor['WARNING'];
   formatter: DefaultLoggerr.FormatterFunction;
   streams: DefaultStreams;
+  debugStream?: WritableStreamLike
 }>;
 
 /**

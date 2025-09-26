@@ -93,4 +93,56 @@ describe('Logger - basic', function () {
     logger.debug('Not logged')
     logger.test('A test message')
   })
+
+  it('should write to debugStream', function (done) {
+    const seenDebug = []
+    const dw = writer((chunk, enc, next) => {
+      seenDebug.push(chunk)
+      if (typeof next === 'function') {
+        next()
+      }
+    })
+
+    const seen = []
+    const w = writer((chunk, enc, next) => {
+      seen.push(chunk)
+      if (typeof next === 'function') {
+        next()
+      }
+    })
+
+    const logger = new Logger({
+      debugStream: dw,
+      streams: Logger.levels.map(() => w),
+      level: Logger.ERROR,
+      formatter: (date, level, data) => {
+        return data.msg
+      }
+    })
+    logger.levels.forEach(function (level, i) {
+      logger[level](level)
+    })
+
+    // direct .write should not write to the debug stream
+    logger.write('emergency', 'end', () => {
+      assert.deepStrictEqual(seen, [
+        'emergency',
+        'alert',
+        'critical',
+        'error',
+        'end'
+      ])
+      assert.deepStrictEqual(seenDebug, [
+        'emergency',
+        'alert',
+        'critical',
+        'error',
+        'warning',
+        'notice',
+        'info',
+        'debug'
+      ])
+      done()
+    })
+  })
 })

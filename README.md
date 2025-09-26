@@ -167,6 +167,21 @@ new Loggerr({
 })
 ```
 
+### Debug Stream
+
+You can also pass a `debugStream` which will receive all logs regardless of level. This is helpful when you want to send
+logs to a file which you can use in error reporting or debugging failures.
+
+```javascript
+new Loggerr({
+  debugStream: fs.createWriteStream('./logs/debug.log', {
+    flags: 'a',
+    encoding: 'utf8'
+  })
+})
+
+```
+
 ## Bundling with Rollup
 
 There is a dynamic require in this library. If you intend to use this with a bundler (ex Rollup) you may need to configure it to include the correct formatter if you pass that
