@@ -12,7 +12,9 @@ describe('Logger - basic', function () {
     it(util.format('should log %s messages', level), function (done) {
       const w = writer(function (chunk, encoding, next) {
         assert.notStrictEqual(chunk.indexOf('foo'), -1, util.format('"%s" does not contain foo', chunk))
-        done()
+        if (typeof next === 'function') {
+          next()
+        }
       })
 
       const logger = new Logger({
@@ -21,8 +23,12 @@ describe('Logger - basic', function () {
       })
       if (Logger.levels[i + 1]) {
         logger[Logger.levels[i + 1]]('bar')
+        logger.writeLevel(Logger.levels[i + 1], 'bar')
       }
       logger[Logger.levels[i]]('foo')
+      logger.writeLevel(Logger.levels[i], 'foo', () => {
+        done()
+      })
     })
   })
 

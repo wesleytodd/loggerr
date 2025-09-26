@@ -139,6 +139,13 @@ const log = new Loggerr({
 })
 ```
 
+### Unformatted/Pre-formatted logging
+
+If you need to write raw logs without formatting there are two options:
+
+1. `writeLevel(level, msg, done)`: Will respect logging `level` but skip all formatting
+2. `write(level, msg, done)`: Will write logs regardless of `level` and skip all formatting
+
 ## Output Streams
 
 You can output each level to it's own stream. The method is simple, just pass an

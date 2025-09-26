@@ -131,6 +131,23 @@ Loggerr.prototype.log = function (level, msg, extra, done) {
 }
 
 /**
+ * Write with level awareness
+ */
+Loggerr.prototype.writeLevel = function (level, msg, done) {
+  const i = this.levels.indexOf(level)
+  if (
+    typeof level !== 'string' ||
+    i > this.level ||
+    !this.streams[i]
+  ) {
+    return
+  }
+
+  // Write out the message
+  this._write(this.streams[i], msg, 'utf8', done)
+}
+
+/**
  * Write to the given level stream
  */
 Loggerr.prototype.write = function (level, msg, done) {
@@ -182,7 +199,6 @@ function processMessage (level, msg, extra, formatter) {
 
   return formatter(new Date(), level, data)
 }
-
 function ErrorContext (err, extra) {
   if (!(err instanceof Error)) {
     err = new Error(err)
