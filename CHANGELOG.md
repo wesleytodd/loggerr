@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.4.0](https://github.com/wesleytodd/loggerr/compare/v4.3.0...v4.4.0) (2025-09-26)
+
+
+### Features
+
+* add debugStream option for optionally capturing all logs regardless of level ([#28](https://github.com/wesleytodd/loggerr/issues/28)) ([ffec1e7](https://github.com/wesleytodd/loggerr/commit/ffec1e768b40fd1810e39fd790c20f7163016c62))
+* add writeLevel to write unformatted logs while respecting level ([#27](https://github.com/wesleytodd/loggerr/issues/27)) ([8a6a677](https://github.com/wesleytodd/loggerr/commit/8a6a677b08556b160c9b6a564fb83a22513de35d))
+
+
+### Bug Fixes
+
+* **ci:** small ci updates ([#29](https://github.com/wesleytodd/loggerr/issues/29)) ([e5f0d11](https://github.com/wesleytodd/loggerr/commit/e5f0d119070eaadd1407d30f9c8800f0a957e751))
+* **docs:** stdin -> stdout in readme ([b45110d](https://github.com/wesleytodd/loggerr/commit/b45110dc2eb525d70dcdc1dd64193ff8b348c520))
+
 ## [4.3.0](https://github.com/wesleytodd/loggerr/compare/v4.2.0...v4.3.0) (2025-06-30)
 
 
