@@ -14,6 +14,7 @@ function Loggerr (options) {
   // Setup levels
   this.levels = opts.levels || Loggerr.levels
   this.streams = opts.streams || Loggerr.defaultOptions.streams
+  this.debugStream = opts.debugStream
   this.levels.forEach((level, i) => {
     this[level] = this.log.bind(this, level)
 
@@ -60,6 +61,7 @@ Loggerr.levels.forEach(function (level, i) {
 Loggerr.defaultOptions = {
   level: Loggerr.WARNING,
   formatter: require('./formatters/default'),
+  debugStream: null,
   streams: typeof window === 'undefined'
     ? Loggerr.levels.map(function (level, i) {
       return i > Loggerr.WARNING ? process.stdout : process.stderr
@@ -96,6 +98,12 @@ Loggerr.prototype.setLevel = function (level) {
  * Logs a message to the given stream
  */
 Loggerr.prototype.log = function (level, msg, extra, done) {
+  // Extra is optional
+  if (typeof extra === 'function') {
+    done = extra
+    extra = {}
+  }
+
   // Require a level, matching output stream and that
   // it is greater then the set level of logging
   const i = this.levels.indexOf(level)
@@ -104,14 +112,46 @@ Loggerr.prototype.log = function (level, msg, extra, done) {
     i > this.level ||
     !this.streams[i]
   ) {
+    if (this.debugStream) {
+      const message = processMessage(level, msg, extra, this.formatter)
+      this._write(this.debugStream, message, 'utf8', done)
+    }
     return
   }
 
-  // Extra is optional
-  if (typeof extra === 'function') {
-    done = extra
-    extra = {}
+  // Format the message
+  const message = processMessage(level, msg, extra, this.formatter)
+
+  if (this.debugStream) {
+    this._write(this.debugStream, message, 'utf8')
   }
+
+  // Write out the message
+  this.write(i, message, done)
+}
+
+/**
+ * Write to the given level stream
+ */
+Loggerr.prototype.write = function (level, msg, done) {
+  const i = typeof level === 'string' ? this.levels.indexOf(level) : level
+
+  // Write out the message
+  this._write(this.streams[i], msg, 'utf8', done)
+}
+
+/**
+ * Abstracted out the actuall writing of the log so it
+ * can be eaisly overridden in sub-classes
+ */
+Loggerr.prototype._write = function (stream, msg, enc, done) {
+  stream.write(msg, enc, done)
+}
+
+module.exports = new Loggerr()
+module.exports.Loggerr = Loggerr
+
+function processMessage (level, msg, extra, formatter) {
   const data = extra || {}
 
   // Set message on extra object
@@ -140,33 +180,8 @@ Loggerr.prototype.log = function (level, msg, extra, done) {
     }
   })
 
-  // Format the message
-  const message = this.formatter(new Date(), level, data)
-
-  // Write out the message
-  this.write(i, message, done)
+  return formatter(new Date(), level, data)
 }
-
-/**
- * Write to the given level stream
- */
-Loggerr.prototype.write = function (level, msg, done) {
-  const i = typeof level === 'string' ? this.levels.indexOf(level) : level
-
-  // Write out the message
-  this._write(this.streams[i], msg, 'utf8', done)
-}
-
-/**
- * Abstracted out the actuall writing of the log so it
- * can be eaisly overridden in sub-classes
- */
-Loggerr.prototype._write = function (stream, msg, enc, done) {
-  stream.write(msg, enc, done)
-}
-
-module.exports = new Loggerr()
-module.exports.Loggerr = Loggerr
 
 function ErrorContext (err, extra) {
   if (!(err instanceof Error)) {
