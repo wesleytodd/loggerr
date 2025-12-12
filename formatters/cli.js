@@ -56,14 +56,14 @@ function createFormatter (options) {
     const details = Object.keys(data).reduce((str, key) => {
       // dont display the message or error in details
       if (data[key] && key !== 'msg' && key !== 'err') {
-        const prefix = `  ${chalk.grey('-')}`
-        const prefixPad = Array(stringLen(prefix)).join(' ')
+        const prefix = `  ${chalk.grey('-')} `
         const [firstLine, ...rest] = util.inspect(data[key], { colors: opts.colors !== false }).split('\n')
-        str += `\n${prefix} ${key}: ${firstLine}`
+        str += `${prefix}${key}: ${firstLine}`
+        const prefixPad = Array(stringLen(prefix + 1)).join(' ')
         str += '\n' + rest.map((l) => prefixPad + l).join('\n')
       }
       return str
-    }, '')
+    }, '\n')
 
     return `${l} ${chalk.grey('›')} ${lines} ${details}\n`
   }
