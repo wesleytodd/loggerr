@@ -13,8 +13,9 @@
     "test:types": "tsc --noEmit test/types.ts",
     "lint": "standard",
     "examples": "for i in examples/*; do echo \"\n======-----======\n  $i\n======-----======\n\"; node \"$i\"; done",
-    "release": "npm t && standard-version && npm publish",
-    "postpublish": "git push && git push --tags"
+    "prerelease": "npm run lint && npm test && standard-version && npm login",
+    "release": "npm publish --access=public --tag=\"${1:-latest}\"",
+    "postrelease": "(npm logout || true) && git push --follow-tags && gh release create --draft --generate-notes \"v$(cat package.json | jq -r .version)\""
   },
   "keywords": [
     "log",
