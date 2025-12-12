@@ -2,6 +2,8 @@
 
 'use strict'
 
+const customInspectSymbol = Symbol.for('nodejs.util.inspect.custom')
+
 /**
  * Loggerr constructor
  */
@@ -155,6 +157,21 @@ Loggerr.prototype.write = function (level, msg, done) {
 
   // Write out the message
   this._write(this.streams[i], msg, 'utf8', done)
+}
+
+/**
+ * Setup a custom inspect for nodejs to prevent bad logging
+ * when logging an instance of the logger itself
+ */
+Loggerr.prototype[customInspectSymbol] = function (depth, inspectOptions, inspect) {
+  const out = this.constructor.name
+  if (depth < 0) {
+    return out
+  }
+  return `${out} ${inspect({ ...this }, {
+    ...inspectOptions,
+    depth: 1
+  })}`
 }
 
 /**
