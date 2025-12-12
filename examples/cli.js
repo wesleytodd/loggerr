@@ -8,6 +8,7 @@ const log = new Loggerr({
 log.debug('Should not be printed')
 log.info('Information unknown')
 log.notice('Notice me plz', {
+  hello: 'world',
   context: {
     some: 'details',
     enough: {
