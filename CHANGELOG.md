@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.4.1](https://github.com/wesleytodd/loggerr/compare/v4.4.0...v4.4.1) (2025-12-12)
+
+
+### Bug Fixes
+
+* **ci:** added coverage report in ci ([#33](https://github.com/wesleytodd/loggerr/issues/33)) ([15e7c98](https://github.com/wesleytodd/loggerr/commit/15e7c986b0dbc2ae6d6927b844d3c109a75f311d))
+* **devdeps:** updated dev deps ([#31](https://github.com/wesleytodd/loggerr/issues/31)) ([482e7d5](https://github.com/wesleytodd/loggerr/commit/482e7d5ecf6ac76fdead228f3a49f8c3ea264ca9))
+* **formatters:** fix extra new line and spacing in cli formatter ([#30](https://github.com/wesleytodd/loggerr/issues/30)) ([f54d6a4](https://github.com/wesleytodd/loggerr/commit/f54d6a4598da40db92efe425cd8301b28dc65e63))
+* **release:** improved release scripts ([#32](https://github.com/wesleytodd/loggerr/issues/32)) ([ca8cd60](https://github.com/wesleytodd/loggerr/commit/ca8cd602d5a84659e7367831b4803fbe77bbf38c))
+
 ## [4.4.0](https://github.com/wesleytodd/loggerr/compare/v4.3.0...v4.4.0) (2025-09-26)
 
 
