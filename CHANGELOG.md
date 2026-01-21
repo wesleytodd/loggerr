@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.5.0](https://github.com/wesleytodd/loggerr/compare/v4.4.1...v4.5.0) (2026-01-21)
+
+
+### Features
+
+* improved output when logging self ([#34](https://github.com/wesleytodd/loggerr/issues/34)) ([26c8719](https://github.com/wesleytodd/loggerr/commit/26c8719d52ea42ecf63d866fa6e1715fad019130))
+
 ### [4.4.1](https://github.com/wesleytodd/loggerr/compare/v4.4.0...v4.4.1) (2025-12-12)
 
 
