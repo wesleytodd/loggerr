@@ -129,6 +129,10 @@ describe('Logger - basic', function () {
       logger[level](level)
     })
 
+    // .writeLevel should write to debug stream
+    logger.writeLevel('error', 'writeLevelError')
+    logger.writeLevel('debug', 'writeLevelDebug')
+
     // direct .write should not write to the debug stream
     logger.write('emergency', 'end', () => {
       assert.deepStrictEqual(seen, [
@@ -136,6 +140,7 @@ describe('Logger - basic', function () {
         'alert',
         'critical',
         'error',
+        'writeLevelError',
         'end'
       ])
       assert.deepStrictEqual(seenDebug, [
@@ -146,7 +151,9 @@ describe('Logger - basic', function () {
         'warning',
         'notice',
         'info',
-        'debug'
+        'debug',
+        'writeLevelError',
+        'writeLevelDebug'
       ])
       done()
     })

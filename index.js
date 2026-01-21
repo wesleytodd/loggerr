@@ -136,6 +136,10 @@ Loggerr.prototype.log = function (level, msg, extra, done) {
  * Write with level awareness
  */
 Loggerr.prototype.writeLevel = function (level, msg, done) {
+  if (this.debugStream) {
+    this._write(this.debugStream, msg, 'utf8')
+  }
+
   const i = this.levels.indexOf(level)
   if (
     typeof level !== 'string' ||
