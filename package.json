@@ -1,6 +1,6 @@
 {
   "name": "loggerr",
-  "version": "4.5.0",
+  "version": "4.6.0",
   "description": "A simple logger to console or file",
   "main": "index.js",
   "type": "commonjs",

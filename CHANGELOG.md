@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.6.0](https://github.com/wesleytodd/loggerr/compare/v4.5.0...v4.6.0) (2026-01-21)
+
+
+### Features
+
+* write to debugStream in .writeLevel ([#36](https://github.com/wesleytodd/loggerr/issues/36)) ([e3590d0](https://github.com/wesleytodd/loggerr/commit/e3590d0911bd99610e9fa468242c755fe72cb911))
+
+
+### Bug Fixes
+
+* git pull --ff-only in prerelease ([9dab0c6](https://github.com/wesleytodd/loggerr/commit/9dab0c69a2482d7b5dcd376f5738bc5ef26d650d))
+
 ## [4.5.0](https://github.com/wesleytodd/loggerr/compare/v4.4.1...v4.5.0) (2026-01-21)
 
 
